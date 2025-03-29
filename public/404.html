@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hillary Koros | Page Not Found</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      text-align: center;
+      padding: 0 20px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    .bar {
+      width: 100px;
+      height: 4px;
+      background-color: #3b82f6;
+      border-radius: 2px;
+      margin-bottom: 1.5rem;
+    }
+    
+    p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+    
+    .redirect-message {
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 1.5rem;
+    }
+    
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(59, 130, 246, 0.3);
+      border-radius: 50%;
+      border-top-color: #3b82f6;
+      animation: spin 1s ease-in-out infinite;
+      margin-top: 1rem;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+      }
+      
+      .redirect-message {
+        color: #aaa;
+      }
+    }
+  </style>
+  <script>
+    // Set a flag to indicate this is a 404 page
+    window.is404Page = true;
+    
+    // Enhanced SPA redirection for GitHub Pages
+    // This handles multiple scenarios including deep links and refreshes on routes
+    (function() {
+      // Check if this is a GitHub Pages site by analyzing the hostname
+      var isGitHubPages = window.location.hostname.includes('github.io');
+      
+      // For GitHub user site (username.github.io), use 0 segments
+      // For project site, use 1 segment (the project name)
+      var pathSegmentsToKeep = 0;
+      
+      // If we're on a project site, adjust the segments to keep
+      if (isGitHubPages && !window.location.hostname.endsWith('.github.io')) {
+        pathSegmentsToKeep = 1;
+      }
+      
+      var l = window.location;
+      
+      // Clean up the path for the redirect
+      var cleanPath = l.pathname
+        .split('/')
+        .slice(1 + pathSegmentsToKeep)
+        .join('/')
+        .replace(/&/g, '~and~');
+      
+      // Build the redirect URL
+      var redirectTo = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
+        l.pathname.split('/').slice(0, 1 + pathSegmentsToKeep).join('/') + 
+        (cleanPath ? '/#/' + cleanPath : '/#/about') +
+        (l.search ? '?' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+        (l.hash && l.hash !== '#/' ? l.hash : '');
+      
+      console.log('404 Redirect: Redirecting to', redirectTo);
+      
+      // Add a slight delay for the user to see the page
+      setTimeout(function() {
+        window.location.replace(redirectTo);
+      }, 1500);
+    })();
+  </script>
+  <!-- Load redirect script for additional handling -->
+  <script src="/redirect-404.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Page Not Found</h1>
+    <div class="bar"></div>
+    <p>The page you're looking for doesn't exist or has been moved.</p>
+    <p>You'll be redirected to the homepage in a moment.</p>
+    <div class="spinner"></div>
+    <div class="redirect-message">Redirecting...</div>
+  </div>
+</body>
+</html>

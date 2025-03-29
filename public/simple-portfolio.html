@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hillary Koros - GIS & Mapping Portfolio</title>
+  <style>
+    :root {
+      --color-bg: #f8f9fa;
+      --color-text: #343a40;
+      --color-primary: #3b82f6;
+      --color-secondary: #6c757d;
+      --color-card: #fff;
+      --color-card-border: #e9ecef;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dark-mode {
+      --color-bg: #1a1a2e;
+      --color-text: #e6e6e6;
+      --color-primary: #4d8bf8;
+      --color-secondary: #9ca3af;
+      --color-card: #242444;
+      --color-card-border: #343463;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--color-text);
+      background-color: var(--color-bg);
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: var(--color-card);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 1rem 0;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--color-primary);
+    }
+    
+    /* Navigation */
+    nav ul {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: var(--color-text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    
+    nav a:hover, nav a.active {
+      color: var(--color-primary);
+    }
+    
+    /* Theme Toggle */
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--color-text);
+      cursor: pointer;
+      font-size: 1.2rem;
+      padding: 5px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+    }
+    
+    .theme-toggle:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+    
+    .dark-mode .theme-toggle:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    /* Hero Section */
+    .hero {
+      padding: 4rem 0;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--color-secondary);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    
+    /* Section Styles */
+    section {
+      padding: 3rem 0;
+    }
+    
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      text-align: center;
+      color: var(--color-primary);
+    }
+    
+    /* About Section */
+    .about-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .about-image {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .about-image img {
+      width: 100%;
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+    
+    .about-text {
+      flex: 2;
+      min-width: 300px;
+    }
+    
+    /* Skills */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    
+    .skill-tag {
+      background-color: var(--color-primary);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      display: inline-block;
+    }
+    
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background-color: var(--color-card);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .project-image {
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    .project-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    
+    .project-card:hover .project-image img {
+      transform: scale(1.05);
+    }
+    
+    .project-content {
+      padding: 1.5rem;
+    }
+    
+    .project-content h3 {
+      margin-top: 0;
+      color: var(--color-text);
+    }
+    
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+    
+    .project-tag {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: var(--color-primary);
+      padding: 0.3rem 0.6rem;
+      border-radius: 15px;
+      font-size: 0.8rem;
+    }
+    
+    /* Contact Section */
+    .contact-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+    
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .contact-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: rgba(59, 130, 246, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      color: var(--color-primary);
+      font-size: 1.2rem;
+    }
+    
+    .contact-form {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    input, textarea {
+      width: 100%;
+      padding: 0.8rem;
+      border: 1px solid var(--color-card-border);
+      border-radius: 5px;
+      background-color: var(--color-card);
+      color: var(--color-text);
+    }
+    
+    button {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    button:hover {
+      background-color: #2563eb;
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--color-card);
+      padding: 2rem 0;
+      margin-top: 3rem;
+      text-align: center;
+      box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
+    }
+    
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    
+    .social-link {
+      color: var(--color-text);
+      font-size: 1.2rem;
+      transition: color 0.3s;
+    }
+    
+    .social-link:hover {
+      color: var(--color-primary);
+    }
+    
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      nav ul {
+        justify-content: center;
+      }
+      
+      .about-content, 
+      .contact-content {
+        flex-direction: column;
+      }
+      
+      .about-image {
+        text-align: center;
+      }
+    }
+    
+    /* Sections Visibility */
+    section {
+      display: none;
+    }
+    
+    section.active {
+      display: block;
+    }
+    
+    #home-section {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="header-content">
+        <div class="logo">Hillary Koros</div>
+        <nav>
+          <ul>
+            <li><a href="#" class="nav-link active" data-section="home-section">Home</a></li>
+            <li><a href="#" class="nav-link" data-section="about-section">About</a></li>
+            <li><a href="#" class="nav-link" data-section="projects-section">Projects</a></li>
+            <li><a href="#" class="nav-link" data-section="contact-section">Contact</a></li>
+          </ul>
+        </nav>
+        <button class="theme-toggle" id="theme-toggle">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <section id="home-section" class="active">
+    <div class="container">
+      <div class="hero">
+        <h1>GIS & Mapping Portfolio</h1>
+        <p>Specializing in Geographic Information Systems, Spatial Databases, and Custom Mapping Solutions</p>
+      </div>
+      
+      <div class="about-content">
+        <div class="about-image">
+          <img src="https://placehold.co/400x400/3b82f6/FFFFFF?text=HK" alt="Hillary Koros">
+        </div>
+        <div class="about-text">
+          <h2>Welcome</h2>
+          <p>I am a GIS and mapping specialist with expertise in PostgreSQL spatial databases, QGIS, and ArcGIS. My work focuses on creating meaningful visualizations and analyses from spatial data.</p>
+          <p>With years of experience in both public and private sectors, I've developed solutions that help organizations make better decisions through location intelligence.</p>
+          <div class="skills">
+            <span class="skill-tag">QGIS</span>
+            <span class="skill-tag">ArcGIS</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">PostGIS</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Leaflet</span>
+            <span class="skill-tag">Spatial Analysis</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about-section">
+    <div class="container">
+      <h2>About Me</h2>
+      <div class="about-content">
+        <div class="about-image">
+          <img src="https://placehold.co/400x400/3b82f6/FFFFFF?text=HK" alt="Hillary Koros">
+        </div>
+        <div class="about-text">
+          <h3>GIS & Mapping Specialist</h3>
+          <p>I am a GIS and mapping specialist with expertise in PostgreSQL spatial databases, QGIS, and ArcGIS. My passion lies in transforming complex spatial data into meaningful insights that drive decision-making.</p>
+          
+          <p>My journey in geospatial technology began with a fascination for how location data could tell powerful stories about our world. Since then, I've worked on projects ranging from environmental conservation to urban planning, always with a focus on creating accurate, insightful, and visually compelling maps and analyses.</p>
+          
+          <h4>Experience</h4>
+          <ul>
+            <li>5+ years working with spatial databases</li>
+            <li>Expertise in PostGIS and spatial SQL</li>
+            <li>Advanced QGIS and ArcGIS implementation</li>
+            <li>Custom mapping applications development</li>
+            <li>Environmental and urban planning projects</li>
+            <li>Remote sensing and satellite imagery analysis</li>
+          </ul>
+          
+          <h4>Skills</h4>
+          <div class="skills">
+            <span class="skill-tag">QGIS</span>
+            <span class="skill-tag">ArcGIS</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">PostGIS</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">Leaflet</span>
+            <span class="skill-tag">Spatial Analysis</span>
+            <span class="skill-tag">Mapbox</span>
+            <span class="skill-tag">Remote Sensing</span>
+            <span class="skill-tag">GPS Data Collection</span>
+            <span class="skill-tag">Geo-statistics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects-section">
+    <div class="container">
+      <h2>My Projects</h2>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://placehold.co/600x400/3b82f6/FFFFFF?text=Watershed+Analysis" alt="Watershed Analysis">
+          </div>
+          <div class="project-content">
+            <h3>Watershed Analysis</h3>
+            <p>Spatial analysis of water flow and contamination risks using PostgreSQL and QGIS.</p>
+            <div class="project-tags">
+              <span class="project-tag">QGIS</span>
+              <span class="project-tag">PostgreSQL</span>
+              <span class="project-tag">Hydrology</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://placehold.co/600x400/3b82f6/FFFFFF?text=Urban+Planning+GIS" alt="Urban Planning GIS">
+          </div>
+          <div class="project-content">
+            <h3>Urban Planning GIS</h3>
+            <p>Interactive mapping application for urban development scenarios built with Leaflet.</p>
+            <div class="project-tags">
+              <span class="project-tag">JavaScript</span>
+              <span class="project-tag">Leaflet</span>
+              <span class="project-tag">Urban Planning</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://placehold.co/600x400/3b82f6/FFFFFF?text=Wildlife+Tracking" alt="Wildlife Tracking">
+          </div>
+          <div class="project-content">
+            <h3>Wildlife Tracking</h3>
+            <p>GPS data analysis and visualization for wildlife conservation efforts.</p>
+            <div class="project-tags">
+              <span class="project-tag">ArcGIS</span>
+              <span class="project-tag">Python</span>
+              <span class="project-tag">Conservation</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <img src="https://placehold.co/600x400/3b82f6/FFFFFF?text=Agriculture+Mapping" alt="Agriculture Mapping">
+          </div>
+          <div class="project-content">
+            <h3>Agriculture Mapping</h3>
+            <p>Precision agriculture mapping system using satellite imagery and ground sensors.</p>
+            <div class="project-tags">
+              <span class="project-tag">Remote Sensing</span>
+              <span class="project-tag">PostGIS</span>
+              <span class="project-tag">Agriculture</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact-section">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <div class="contact-content">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div>
+              <h3>Email</h3>
+              <p>koroshillary12@gmail.com</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div>
+              <h3>Phone</h3>
+              <p>+254 7XX XXX XXX</p>
+            </div>
+          </div>
+          
+          <div class="contact-item">
+            <div class="contact-icon">🌎</div>
+            <div>
+              <h3>Location</h3>
+              <p>Nairobi, Kenya</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="contact-form">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your name">
+          </div>
+          
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Your email">
+          </div>
+          
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" rows="5" placeholder="Your message"></textarea>
+          </div>
+          
+          <button type="button">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2025 Hillary Koros. All rights reserved.</p>
+      <div class="social-links">
+        <a href="#" class="social-link">GitHub</a>
+        <a href="#" class="social-link">LinkedIn</a>
+        <a href="#" class="social-link">Twitter</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggling
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    // Check for saved theme preference or use preferred color scheme
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Apply the right theme
+    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+      body.classList.add('dark-mode');
+      themeToggle.textContent = '☀️';
+    }
+    
+    // Toggle theme on button click
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark-mode');
+      
+      if (body.classList.contains('dark-mode')) {
+        localStorage.setItem('theme', 'dark');
+        themeToggle.textContent = '☀️';
+      } else {
+        localStorage.setItem('theme', 'light');
+        themeToggle.textContent = '🌙';
+      }
+    });
+    
+    // Navigation
+    const navLinks = document.querySelectorAll('.nav-link');
+    const sections = document.querySelectorAll('section');
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Remove active class from all links
+        navLinks.forEach(navLink => navLink.classList.remove('active'));
+        
+        // Add active class to clicked link
+        link.classList.add('active');
+        
+        // Show appropriate section
+        const sectionId = link.getAttribute('data-section');
+        sections.forEach(section => {
+          section.classList.remove('active');
+          if (section.id === sectionId) {
+            section.classList.add('active');
+          }
+        });
+        
+        // Scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+    
+    // Simple form validation
+    const contactForm = document.querySelector('.contact-form button');
+    if (contactForm) {
+      contactForm.addEventListener('click', () => {
+        const name = document.getElementById('name');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+        
+        if (!name.value || !email.value || !message.value) {
+          alert('Please fill in all fields.');
+          return;
+        }
+        
+        // In a real app, you would send this data to a server
+        alert('Thank you for your message! I will get back to you soon.');
+        name.value = '';
+        email.value = '';
+        message.value = '';
+      });
+    }
+  </script>
+</body>
+</html>

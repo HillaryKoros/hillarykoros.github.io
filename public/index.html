@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Hillary Koros | GIS & Mapping Portfolio</title>
+  <meta name="description" content="Skilled GIS and Mapping professional with expertise in PostGIS, QGIS, and ArcGIS, creating impactful visualizations and analyses for environmental and urban planning projects.">
+  
+  <!-- Explicitly define MIME types -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  
+  <!-- Preconnect to improve performance -->
+  <link rel="preconnect" href="https://hillarykoros.github.io">
+  <link rel="dns-prefetch" href="https://hillarykoros.github.io">
+  
+  <!-- Redirect script for GitHub Pages SPA -->
+  <script type="application/javascript">
+    // This handles the edge case where a user accesses a URL directly (not through the app's routing)
+    (function() {
+      // Parse the query parameters
+      var match = document.location.search.match(/\?\/([^&]*)/);
+      if (match) {
+        var path = match[1].replace(/~and~/g, '&');
+        var route = path.split('?')[0].toLowerCase();
+        
+        // Set the hash to the correct route
+        history.replaceState(null, null, 
+          document.location.pathname.split('/').slice(0, -1).join('/') + '#/' + route +
+          (path.includes('?') ? '?' + path.split('?')[1] : '')
+        );
+      }
+      
+      // If loading from a direct URL with only a hash component
+      var hash = document.location.hash;
+      if (hash.length > 0) {
+        var cleanHash = hash.substr(1);
+        if (cleanHash.startsWith('/')) {
+          cleanHash = cleanHash.substr(1);
+        }
+        window.initialRoute = cleanHash || 'about';
+      } else {
+        window.initialRoute = 'about';
+      }
+    })();
+  </script>
+  
+  <!-- Preload placeholder -->
+  <style type="text/css">
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    
+    #root {
+      height: 100%;
+    }
+    
+    .loading-screen {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f9f9f9;
+      color: #333;
+      transition: opacity 0.5s ease-in-out;
+    }
+    
+    .dark-mode .loading-screen {
+      background-color: #1a1a1a;
+      color: #f0f0f0;
+    }
+    
+    .name {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+    
+    .bar {
+      width: 100px;
+      height: 4px;
+      background-color: #3b82f6;
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+    
+    .dot {
+      width: 10px;
+      height: 10px;
+      background-color: #3b82f6;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+      }
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+      }
+    }
+    
+    /* Check system preference for dark mode */
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+      }
+      body:not(.light-mode) .loading-screen {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+      }
+    }
+    
+    /* Add retry button styles for MIME type issues */
+    .retry-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.2s;
+    }
+    
+    .retry-button:hover {
+      background-color: #2563eb;
+    }
+    
+    .error-message {
+      margin-top: 20px;
+      padding: 10px;
+      max-width: 80%;
+      text-align: center;
+      font-size: 14px;
+      color: #dc2626;
+      display: none;
+    }
+  </style>
+  
+  <!-- Error detection script -->
+  <script type="application/javascript">
+    // Track if we've already displayed an error
+    window.errorDisplayed = false;
+    
+    // Monitor for script loading errors
+    window.addEventListener('error', function(e) {
+      console.error('Resource error detected:', e.target);
+      
+      // Only show the error once
+      if (!window.errorDisplayed && 
+          (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) {
+        window.errorDisplayed = true;
+        
+        // Show error message
+        var errorMsg = document.getElementById('error-message');
+        if (errorMsg) {
+          errorMsg.style.display = 'block';
+          errorMsg.innerHTML = 'Failed to load resource: ' + (e.target.src || e.target.href) + 
+                              '<br>This may be due to MIME type configuration.';
+        }
+        
+        // Show retry button
+        var retryBtn = document.getElementById('retry-button');
+        if (retryBtn) {
+          retryBtn.style.display = 'block';
+        }
+        
+        // Log detailed error
+        console.error('MIME type or resource loading error:', e);
+      }
+    }, true);
+  </script>
+</head>
+<body>
+  <div id="root">
+    <!-- Fallback loading screen -->
+    <div class="loading-screen">
+      <div class="name">Hillary Koros</div>
+      <div class="bar"></div>
+      <div class="dot"></div>
+      
+      <!-- This will only appear if loading fails -->
+      <div id="error-message" class="error-message"></div>
+      <button id="retry-button" class="retry-button" style="display: none;" 
+              onclick="window.location.reload()">
+        Retry Loading
+      </button>
+    </div>
+  </div>
+  
+  <!-- Scripts with explicit type attributes -->
+  <script type="application/javascript">
+    // Check for preferred color scheme for immediate dark mode
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.body.classList.add('dark-mode');
+    }
+    
+    // Listen for theme changes
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+      if (e.matches) {
+        document.body.classList.add('dark-mode');
+        document.body.classList.remove('light-mode');
+      } else {
+        document.body.classList.add('light-mode');
+        document.body.classList.remove('dark-mode');
+      }
+    });
+    
+    // Show retry button after a delay if the app hasn't loaded
+    setTimeout(function() {
+      var appContent = document.querySelector('main');
+      if (!appContent) {
+        document.getElementById('retry-button').style.display = 'block';
+      }
+    }, 10000);
+  </script>
+</body>
+</html>

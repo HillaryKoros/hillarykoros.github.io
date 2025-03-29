@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Script-Type" content="application/javascript">
+  <title>MIME Type Test</title>
+  <style type="text/css">
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    h1 {
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 10px;
+      color: #3b82f6;
+    }
+    
+    .card {
+      border: 1px solid #e5e5e5;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 20px;
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    
+    .result {
+      font-weight: bold;
+      margin-top: 10px;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: inline-block;
+    }
+    
+    .success {
+      background-color: #d1fae5;
+      color: #047857;
+    }
+    
+    .failure {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    button {
+      background-color: #3b82f6;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    
+    button:hover {
+      background-color: #2563eb;
+    }
+    
+    .mime-info {
+      font-family: monospace;
+      padding: 8px;
+      background-color: #f8f8f8;
+      border-radius: 4px;
+      margin-top: 10px;
+      overflow-wrap: break-word;
+    }
+    
+    .footer {
+      margin-top: 40px;
+      border-top: 1px solid #e5e5e5;
+      padding-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>JavaScript MIME Type Test</h1>
+  <p>This page tests if GitHub Pages is serving JavaScript files with the correct MIME type.</p>
+  
+  <div class="card">
+    <h2>1. Inline Script Test</h2>
+    <p>Tests if inline JavaScript executes correctly.</p>
+    <div id="inline-result" class="result">Testing...</div>
+  </div>
+  
+  <div class="card">
+    <h2>2. External Script Test</h2>
+    <p>Tests if an external JavaScript file loads correctly.</p>
+    <button id="external-test-btn">Run Test</button>
+    <div id="external-result" class="result">Not yet tested</div>
+    <div id="mime-info" class="mime-info" style="display: none;"></div>
+  </div>
+  
+  <div class="card">
+    <h2>3. Dynamic Script Loading Test</h2>
+    <p>Tests if dynamically loaded scripts work correctly.</p>
+    <button id="dynamic-test-btn">Run Test</button>
+    <div id="dynamic-result" class="result">Not yet tested</div>
+  </div>
+  
+  <div class="footer">
+    <p>If all tests pass, your GitHub Pages configuration is correctly handling JavaScript MIME types.</p>
+    <p>If tests fail, please refer to the GITHUB_PAGES_MIME_TROUBLESHOOTING.md file for solutions.</p>
+  </div>
+  
+  <script type="application/javascript">
+    // Test 1: Inline script
+    (function() {
+      try {
+        const resultElement = document.getElementById('inline-result');
+        resultElement.textContent = 'Success! Inline JavaScript works.';
+        resultElement.className = 'result success';
+      } catch(e) {
+        const resultElement = document.getElementById('inline-result');
+        resultElement.textContent = 'Failed: ' + e.message;
+        resultElement.className = 'result failure';
+      }
+    })();
+    
+    // Test 2: External script test
+    document.getElementById('external-test-btn').addEventListener('click', function() {
+      const resultElement = document.getElementById('external-result');
+      const mimeInfoElement = document.getElementById('mime-info');
+      
+      resultElement.textContent = 'Testing...';
+      resultElement.className = 'result';
+      mimeInfoElement.style.display = 'none';
+      
+      fetch('mime-test.js')
+        .then(response => {
+          const contentType = response.headers.get('Content-Type');
+          
+          mimeInfoElement.textContent = 'File: mime-test.js\nMIME Type: ' + contentType;
+          mimeInfoElement.style.display = 'block';
+          
+          if (contentType && (contentType.includes('javascript') || contentType.includes('application/js'))) {
+            resultElement.textContent = 'Success! Correct MIME type detected.';
+            resultElement.className = 'result success';
+          } else {
+            resultElement.textContent = 'Failed: Incorrect MIME type.';
+            resultElement.className = 'result failure';
+          }
+          
+          return response.text();
+        })
+        .then(text => {
+          console.log('Script content loaded successfully, length:', text.length);
+        })
+        .catch(error => {
+          resultElement.textContent = 'Error: ' + error.message;
+          resultElement.className = 'result failure';
+        });
+    });
+    
+    // Test 3: Dynamic script loading
+    document.getElementById('dynamic-test-btn').addEventListener('click', function() {
+      const resultElement = document.getElementById('dynamic-result');
+      resultElement.textContent = 'Testing...';
+      resultElement.className = 'result';
+      
+      // Add a global function for the script to call
+      window.mimeTestCallback = function() {
+        resultElement.textContent = 'Success! Dynamic script loaded and executed.';
+        resultElement.className = 'result success';
+        
+        // Clean up
+        delete window.mimeTestCallback;
+      };
+      
+      // Create and add the script
+      const script = document.createElement('script');
+      script.type = 'application/javascript';
+      script.src = 'mime-test.js';
+      
+      script.onload = function() {
+        console.log('Script loaded successfully');
+      };
+      
+      script.onerror = function(e) {
+        resultElement.textContent = 'Failed: Script loading error.';
+        resultElement.className = 'result failure';
+        console.error('Script loading error:', e);
+      };
+      
+      document.head.appendChild(script);
+      
+      // Timeout for safety
+      setTimeout(function() {
+        if (resultElement.textContent === 'Testing...') {
+          resultElement.textContent = 'Failed: Script didn\'t execute (timeout).';
+          resultElement.className = 'result failure';
+        }
+      }, 3000);
+    });
+  </script>
+</body>
+</html>
