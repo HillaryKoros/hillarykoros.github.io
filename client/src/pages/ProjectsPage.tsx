@@ -1,209 +1,104 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import {
   Box,
   Typography,
   Grid,
   Stack,
-  Paper
+  Chip
 } from '@mui/material';
 import ProjectCard from '../components/ProjectCard';
-import { projects } from '../data/projects';
+import { projects, Project } from '../data/projects';
 
-const ProjectsPage: React.FC = () => {
-  const icpacProjects = projects.filter(p => p.organization === 'icpac');
-  const personalProjects = projects.filter(p => p.organization !== 'icpac');
+interface ProjectsPageProps {
+  onViewProject?: (projectId: string) => void;
+}
+
+const statusConfig = {
+  operational: { title: 'Operational', color: '#22c55e' },
+  ongoing: { title: 'Ongoing', color: '#3b82f6' },
+  planned: { title: 'Planned', color: '#f97316' }
+};
+
+const ProjectsPage: React.FC<ProjectsPageProps> = ({ onViewProject }) => {
+  const groupedProjects = useMemo(() => {
+    const groups: Record<string, Project[]> = { operational: [], ongoing: [], planned: [] };
+    projects.forEach(project => {
+      if (groups[project.status]) groups[project.status].push(project);
+    });
+    return groups;
+  }, []);
+
+  const renderProjectSection = (status: 'operational' | 'ongoing' | 'planned', projectList: Project[]) => {
+    if (projectList.length === 0) return null;
+    const config = statusConfig[status];
+
+    return (
+      <Box key={status} sx={{ mb: 5 }}>
+        <Stack direction="row" alignItems="center" spacing={1.5} sx={{ mb: 3 }}>
+          <Typography variant="h6" fontWeight={600} sx={{ color: 'hsl(var(--foreground))' }}>
+            {config.title}
+          </Typography>
+          <Chip
+            label={projectList.length}
+            size="small"
+            sx={{ backgroundColor: `${config.color}20`, color: config.color, fontWeight: 600 }}
+          />
+        </Stack>
+
+        <Grid container spacing={3}>
+          {projectList.map((project, index) => (
+            <Grid size={{ xs: 12, md: 6, lg: 4 }} key={project.id}>
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+              >
+                <ProjectCard
+                  title={project.title}
+                  description={project.description}
+                  imageSrc={project.imageSrc}
+                  gradient={project.gradient}
+                  categories={project.displayCategories}
+                  technologies={project.technologies}
+                  projectLink={project.projectLink}
+                  codeLink={project.codeLink}
+                  status={project.status}
+                  onViewDetails={() => onViewProject?.(project.id)}
+                />
+              </motion.div>
+            </Grid>
+          ))}
+        </Grid>
+      </Box>
+    );
+  };
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.3 }}
     >
-      <Stack spacing={5}>
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              p: { xs: 4, md: 6 },
-              borderRadius: 4,
-              background: 'linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--primary) / 0.08) 50%, hsl(var(--secondary) / 0.15) 100%)',
-              border: '2px solid hsl(var(--border))',
-              position: 'relative',
-              overflow: 'hidden',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: -50,
-                right: -50,
-                width: 200,
-                height: 200,
-                borderRadius: '50%',
-                background: 'hsl(var(--primary) / 0.1)',
-                filter: 'blur(40px)'
-              },
-              '&::after': {
-                content: '""',
-                position: 'absolute',
-                bottom: -80,
-                left: -80,
-                width: 250,
-                height: 250,
-                borderRadius: '50%',
-                background: 'linear-gradient(135deg, #8b5cf620 0%, #3b82f620 100%)',
-                filter: 'blur(50px)'
-              }
-            }}
-          >
-            <Box sx={{ position: 'relative', zIndex: 1 }}>
-              <Typography
-                variant="h3"
-                component="h1"
-                fontWeight={700}
-                sx={{ mb: 2, color: 'hsl(var(--foreground))', fontSize: { xs: '2rem', md: '2.5rem' } }}
-              >
-                My Projects
-              </Typography>
-              <Box
-                sx={{
-                  height: 6,
-                  width: 80,
-                  background: 'linear-gradient(90deg, #8b5cf6 0%, #3b82f6 100%)',
-                  borderRadius: 3,
-                  mb: 3
-                }}
-              />
-              <Typography
-                variant="body1"
-                sx={{
-                  color: 'hsl(var(--foreground) / 0.85)',
-                  fontWeight: 400,
-                  lineHeight: 1.9,
-                  fontSize: '1.1rem',
-                  textAlign: 'justify'
-                }}
-              >
-                A collection of my work in geospatial technology, data science, and web development.
-                From early warning systems that help communities prepare for climate-related disasters
-                to interactive mapping applications that make spatial data accessible and understandable.
-                Each project represents a step forward in leveraging technology for meaningful impact.
-              </Typography>
-            </Box>
-          </Paper>
-        </motion.div>
+      <Stack spacing={4}>
+        {/* Hero */}
+        <section className="py-8">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+            My Projects
+          </h1>
+          <p className="text-lg md:text-xl text-muted-foreground leading-loose text-justify">
+            A collection of my work in geospatial technology, data science, and web development.
+            From early warning systems to interactive mapping applications.
+          </p>
+        </section>
 
-        {/* ICPAC Projects */}
-        {icpacProjects.length > 0 && (
-          <Box>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                <Box
-                  sx={{
-                    height: 32,
-                    width: 6,
-                    background: 'linear-gradient(180deg, #3b82f6 0%, #3b82f650 100%)',
-                    borderRadius: 1
-                  }}
-                />
-                <Box>
-                  <Typography variant="h4" fontWeight={700} sx={{ color: 'hsl(var(--foreground))' }}>
-                    ICPAC Projects
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'hsl(var(--muted-foreground))' }}>
-                    Climate and early warning systems development
-                  </Typography>
-                </Box>
-              </Stack>
-            </motion.div>
-
-            <Grid container spacing={3}>
-              {icpacProjects.map((project, index) => (
-                <Grid size={{ xs: 12, md: 6, xl: 4 }} key={project.id}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                  >
-                    <ProjectCard
-                      title={project.title}
-                      description={project.description}
-                      imageSrc={project.imageSrc}
-                      gradient={project.gradient}
-                      categories={project.displayCategories}
-                      technologies={project.technologies}
-                      projectLink={project.projectLink}
-                      codeLink={project.codeLink}
-                    />
-                  </motion.div>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
-
-        {/* Personal Projects */}
-        {personalProjects.length > 0 && (
-          <Box>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 3 }}>
-                <Box
-                  sx={{
-                    height: 32,
-                    width: 6,
-                    background: 'linear-gradient(180deg, #22c55e 0%, #22c55e50 100%)',
-                    borderRadius: 1
-                  }}
-                />
-                <Box>
-                  <Typography variant="h4" fontWeight={700} sx={{ color: 'hsl(var(--foreground))' }}>
-                    Open Source & Personal
-                  </Typography>
-                  <Typography variant="body2" sx={{ color: 'hsl(var(--muted-foreground))' }}>
-                    Side projects and contributions on GitHub
-                  </Typography>
-                </Box>
-              </Stack>
-            </motion.div>
-
-            <Grid container spacing={3}>
-              {personalProjects.map((project, index) => (
-                <Grid size={{ xs: 12, md: 6, xl: 4 }} key={project.id}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                  >
-                    <ProjectCard
-                      title={project.title}
-                      description={project.description}
-                      imageSrc={project.imageSrc}
-                      gradient={project.gradient}
-                      categories={project.displayCategories}
-                      technologies={project.technologies}
-                      projectLink={project.projectLink}
-                      codeLink={project.codeLink}
-                    />
-                  </motion.div>
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
+        {/* Projects */}
+        <Box>
+          {renderProjectSection('operational', groupedProjects.operational)}
+          {renderProjectSection('ongoing', groupedProjects.ongoing)}
+          {renderProjectSection('planned', groupedProjects.planned)}
+        </Box>
       </Stack>
     </motion.div>
   );

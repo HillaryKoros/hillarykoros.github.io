@@ -2,6 +2,7 @@ interface Skill {
   name: string;
   percentage: number;
   label?: string;
+  code?: string;
 }
 
 export const programmingSkills: Skill[] = [
@@ -31,21 +32,25 @@ export const humanLanguages: Skill[] = [
   {
     name: "English",
     percentage: 100,
-    label: "Fluent"
+    label: "Fluent",
+    code: "EN"
   },
   {
     name: "Kiswahili",
     percentage: 100,
-    label: "Ufasaha"
+    label: "Ufasaha",
+    code: "SW"
   },
   {
     name: "Kalenjin",
     percentage: 100,
-    label: "Amuche Angalal ak Asir"
+    label: "Amuche Angalal ak Asir",
+    code: "KLN"
   },
   {
     name: "Chinese",
     percentage: 10,
-    label: "我还是初学者 (Wǒ háishì chūxuézhě.)"
+    label: "初学者",
+    code: "ZH"
   }
 ];

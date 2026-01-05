@@ -63,8 +63,26 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    background-color: #fafbfc;
+    background-image:
+      radial-gradient(at 20% 20%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+      radial-gradient(at 80% 10%, rgba(139, 92, 246, 0.06) 0px, transparent 50%),
+      radial-gradient(at 60% 80%, rgba(6, 182, 212, 0.06) 0px, transparent 50%),
+      radial-gradient(at 10% 70%, rgba(34, 197, 94, 0.05) 0px, transparent 50%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .dark body {
+    background-color: #0a0a0f;
+    background-image:
+      radial-gradient(at 20% 20%, rgba(59, 130, 246, 0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 10%, rgba(139, 92, 246, 0.12) 0px, transparent 50%),
+      radial-gradient(at 60% 80%, rgba(6, 182, 212, 0.1) 0px, transparent 50%),
+      radial-gradient(at 10% 70%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
+    background-attachment: fixed;
   }
 }
 
@@ -109,3 +127,27 @@
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400;
 }
+
+/* Floating icons animation */
+@keyframes float-up {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.15;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.animate-float-1 { animation: float-up 20s linear infinite; }
+.animate-float-2 { animation: float-up 25s linear infinite; animation-delay: 2s; }
+.animate-float-3 { animation: float-up 22s linear infinite; animation-delay: 4s; }
+.animate-float-4 { animation: float-up 28s linear infinite; animation-delay: 1s; }
+.animate-float-5 { animation: float-up 24s linear infinite; animation-delay: 3s; }
+.animate-float-6 { animation: float-up 26s linear infinite; animation-delay: 5s; }
+.animate-float-7 { animation: float-up 23s linear infinite; animation-delay: 6s; }
+.animate-float-8 { animation: float-up 27s linear infinite; animation-delay: 7s; }

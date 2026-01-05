@@ -1,24 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import {
-  Box,
-  Typography,
-  Card,
-  CardActionArea,
-  Grid,
-  Button,
-  Stack,
-  Paper
-} from '@mui/material';
-import {
-  Email as EmailIcon,
-  WhatsApp as WhatsAppIcon,
-  Phone as PhoneIcon,
-  CalendarMonth as CalendarIcon,
-  LocationOn as LocationIcon,
-  Coffee as CoffeeIcon,
-  Favorite as FavoriteIcon
-} from '@mui/icons-material';
+import { Mail, Phone, Calendar, MapPin, Heart, Coffee } from 'lucide-react';
+import { FaWhatsapp, FaGithub } from 'react-icons/fa';
 import { contactInfo } from '../data/contactInfo';
 
 interface WindowWithCalendly extends Window {
@@ -28,35 +11,10 @@ interface WindowWithCalendly extends Window {
 }
 
 const contactActions = [
-  {
-    id: 'email',
-    label: 'Send Email',
-    icon: EmailIcon,
-    color: '#3b82f6',
-    getUrl: () => `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email.value}`
-  },
-  {
-    id: 'whatsapp',
-    label: 'WhatsApp',
-    icon: WhatsAppIcon,
-    color: '#22c55e',
-    getUrl: () => `https://wa.me/${contactInfo.phone.value.replace('+', '')}`
-  },
-  {
-    id: 'call',
-    label: 'Call',
-    icon: PhoneIcon,
-    color: '#8b5cf6',
-    getUrl: () => `tel:${contactInfo.phone.value}`
-  },
-  {
-    id: 'schedule',
-    label: 'Schedule',
-    icon: CalendarIcon,
-    color: '#f97316',
-    isCalendly: true,
-    getUrl: () => contactInfo.calendly.url
-  }
+  { id: 'email', label: 'Email', Icon: Mail, color: 'bg-blue-500', getUrl: () => `https://mail.google.com/mail/?view=cm&fs=1&to=${contactInfo.email.value}` },
+  { id: 'whatsapp', label: 'WhatsApp', Icon: FaWhatsapp, color: 'bg-green-500', getUrl: () => `https://wa.me/${contactInfo.phone.value.replace('+', '')}` },
+  { id: 'call', label: 'Call', Icon: Phone, color: 'bg-purple-500', getUrl: () => `tel:${contactInfo.phone.value}` },
+  { id: 'schedule', label: 'Schedule', Icon: Calendar, color: 'bg-orange-500', isCalendly: true, getUrl: () => contactInfo.calendly.url }
 ];
 
 const ContactPage: React.FC = () => {
@@ -99,275 +57,107 @@ const ContactPage: React.FC = () => {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
+      transition={{ duration: 0.3 }}
+      className="space-y-12"
     >
-      <Stack spacing={4}>
-        {/* Hero Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4 }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              p: { xs: 4, md: 6 },
-              borderRadius: 4,
-              background: 'linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--primary) / 0.08) 50%, hsl(var(--secondary) / 0.15) 100%)',
-              border: '2px solid hsl(var(--border))',
-              position: 'relative',
-              overflow: 'hidden',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: -50,
-                right: -50,
-                width: 200,
-                height: 200,
-                borderRadius: '50%',
-                background: 'hsl(var(--primary) / 0.1)',
-                filter: 'blur(40px)'
-              }
-            }}
-          >
-            <Box sx={{ position: 'relative', zIndex: 1 }}>
-              <Typography
-                variant="h3"
-                component="h1"
-                fontWeight={700}
-                sx={{ mb: 2, color: 'hsl(var(--foreground))', fontSize: { xs: '2rem', md: '2.5rem' } }}
-              >
-                Let's Connect
-              </Typography>
-              <Box
-                sx={{
-                  height: 6,
-                  width: 80,
-                  background: 'linear-gradient(90deg, #3b82f6 0%, #22c55e 100%)',
-                  borderRadius: 3,
-                  mb: 3
-                }}
-              />
-              <Typography
-                variant="body1"
-                sx={{
-                  color: 'hsl(var(--foreground) / 0.85)',
-                  fontWeight: 400,
-                  lineHeight: 1.9,
-                  fontSize: '1.1rem',
-                  textAlign: 'justify'
-                }}
-              >
-                Have a project in mind or want to collaborate? I'm always open to discussing new opportunities
-                in geospatial technology, data science, and web development. Whether it's building climate resilience
-                systems, creating interactive mapping solutions, or developing data-driven applications, let's explore
-                how we can work together to create meaningful impact.
-              </Typography>
-            </Box>
-          </Paper>
-        </motion.div>
+      {/* Hero */}
+      <section className="py-8">
+        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+          Let's Connect
+        </h1>
+        <p className="text-lg md:text-xl text-muted-foreground leading-loose text-justify">
+          Have a project in mind or want to collaborate? I'm always open to discussing new opportunities
+          in geospatial technology, data science, and web development.
+        </p>
+      </section>
 
-        {/* Contact Actions */}
-        <Grid container spacing={3}>
+      {/* Contact Actions */}
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+          Get In Touch
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {contactActions.map((action, index) => {
-            const IconComponent = action.icon;
+            const IconComponent = action.Icon;
             return (
-              <Grid size={{ xs: 6, sm: 3 }} key={action.id}>
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                >
-                  <Card
-                    elevation={0}
-                    sx={{
-                      borderRadius: 4,
-                      border: '2px solid hsl(var(--border))',
-                      background: `linear-gradient(135deg, hsl(var(--card)) 0%, ${action.color}08 100%)`,
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        borderColor: action.color,
-                        boxShadow: `0 12px 40px ${action.color}20`,
-                        transform: 'translateY(-6px)'
-                      }
-                    }}
-                  >
-                    <CardActionArea
-                      onClick={() => handleAction(action)}
-                      sx={{ p: 4, textAlign: 'center' }}
-                    >
-                      <Box
-                        sx={{
-                          width: 80,
-                          height: 80,
-                          borderRadius: 3,
-                          background: `linear-gradient(135deg, ${action.color}20 0%, ${action.color}10 100%)`,
-                          border: `2px solid ${action.color}30`,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          mx: 'auto',
-                          mb: 2,
-                          transition: 'all 0.3s ease'
-                        }}
-                      >
-                        <IconComponent sx={{ fontSize: 40, color: action.color }} />
-                      </Box>
-                      <Typography
-                        variant="h6"
-                        fontWeight={700}
-                        sx={{ color: 'hsl(var(--foreground))', fontSize: '1.1rem' }}
-                      >
-                        {action.label}
-                      </Typography>
-                    </CardActionArea>
-                  </Card>
-                </motion.div>
-              </Grid>
+              <motion.button
+                key={action.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.05 }}
+                onClick={() => handleAction(action)}
+                className="bg-card border border-border rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+              >
+                <div className={`w-20 h-20 ${action.color} rounded-full flex items-center justify-center mx-auto mb-5`}>
+                  <IconComponent className="w-10 h-10 text-white" />
+                </div>
+                <h3 className="text-xl font-bold text-foreground">{action.label}</h3>
+              </motion.button>
             );
           })}
-        </Grid>
+        </div>
+      </section>
 
-        {/* Location */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.4 }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              p: 4,
-              borderRadius: 4,
-              border: '2px solid hsl(var(--border))',
-              background: 'linear-gradient(135deg, hsl(var(--card)) 0%, #06b6d408 100%)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 3,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                borderColor: '#06b6d4',
-                transform: 'translateY(-4px)',
-                boxShadow: '0 12px 40px #06b6d420'
-              }
-            }}
+      {/* Location & Support */}
+      <section>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Location */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+            className="bg-card border border-border rounded-2xl p-8"
           >
-            <Box
-              sx={{
-                width: 80,
-                height: 80,
-                borderRadius: 3,
-                background: 'linear-gradient(135deg, #06b6d420 0%, #06b6d410 100%)',
-                border: '2px solid #06b6d430',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <LocationIcon sx={{ fontSize: 40, color: '#06b6d4' }} />
-            </Box>
-            <Box>
-              <Typography variant="h5" fontWeight={700} sx={{ color: 'hsl(var(--foreground))', fontSize: '1.3rem' }}>
-                {contactInfo.location.title}
-              </Typography>
-              <Typography variant="body1" sx={{ color: 'hsl(var(--muted-foreground))', fontSize: '1.1rem' }}>
-                {contactInfo.location.value}
-              </Typography>
-            </Box>
-          </Paper>
-        </motion.div>
+            <div className="flex items-center gap-5">
+              <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center">
+                <MapPin className="w-10 h-10 text-blue-500" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-foreground">{contactInfo.location.title}</h3>
+                <p className="text-xl text-muted-foreground">{contactInfo.location.value}</p>
+              </div>
+            </div>
+          </motion.div>
 
-        {/* Support Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.4, delay: 0.5 }}
-        >
-          <Paper
-            elevation={0}
-            sx={{
-              p: 5,
-              borderRadius: 4,
-              border: '2px solid hsl(var(--border))',
-              background: 'linear-gradient(135deg, hsl(var(--card)) 0%, #ec489908 100%)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                borderColor: '#ec4899',
-                boxShadow: '0 12px 40px #ec489920'
-              }
-            }}
+          {/* Support */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="bg-card border border-border rounded-2xl p-8"
           >
-            <Stack direction="row" spacing={3} alignItems="flex-start">
-              <Box
-                sx={{
-                  width: 80,
-                  height: 80,
-                  minWidth: 80,
-                  borderRadius: 3,
-                  background: 'linear-gradient(135deg, #ec489920 0%, #ec489910 100%)',
-                  border: '2px solid #ec489930',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}
+            <div className="flex items-center gap-5 mb-6">
+              <div className="w-20 h-20 bg-pink-500/10 rounded-full flex items-center justify-center">
+                <Heart className="w-10 h-10 text-pink-500" fill="currentColor" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-foreground">{contactInfo.support.title}</h3>
+                <p className="text-lg text-muted-foreground">{contactInfo.support.subtitle}</p>
+              </div>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <a
+                href="https://buymeacoffee.com/hillarykoros"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-6 py-4 bg-card border border-border rounded-xl text-lg font-semibold text-foreground hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
               >
-                <FavoriteIcon sx={{ fontSize: 40, color: '#ec4899' }} />
-              </Box>
-              <Box sx={{ flex: 1 }}>
-                <Typography
-                  variant="h5"
-                  fontWeight={700}
-                  sx={{ mb: 1, color: 'hsl(var(--foreground))', fontSize: '1.4rem' }}
-                >
-                  {contactInfo.support.title}
-                </Typography>
-                <Typography
-                  variant="body1"
-                  sx={{ mb: 3, color: 'hsl(var(--muted-foreground))', fontSize: '1.1rem' }}
-                >
-                  {contactInfo.support.subtitle}
-                </Typography>
-                <Stack direction="row" spacing={2} flexWrap="wrap" useFlexGap>
-                  {contactInfo.support.links.map((link, index) => {
-                    const colors = ['#f97316', '#ec4899'];
-                    const color = colors[index % colors.length];
-                    return (
-                      <Button
-                        key={index}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        variant="outlined"
-                        startIcon={link.label.includes('Coffee') ? <CoffeeIcon /> : <FavoriteIcon />}
-                        sx={{
-                          borderRadius: 3,
-                          px: 4,
-                          py: 1.5,
-                          borderColor: color,
-                          color: 'hsl(var(--foreground))',
-                          background: `linear-gradient(135deg, ${color}15 0%, ${color}08 100%)`,
-                          textTransform: 'none',
-                          fontWeight: 700,
-                          fontSize: '1rem',
-                          transition: 'all 0.3s ease',
-                          '&:hover': {
-                            borderColor: color,
-                            background: `linear-gradient(135deg, ${color}25 0%, ${color}15 100%)`,
-                            transform: 'translateY(-2px)',
-                            boxShadow: `0 6px 20px ${color}30`
-                          }
-                        }}
-                      >
-                        {link.label}
-                      </Button>
-                    );
-                  })}
-                </Stack>
-              </Box>
-            </Stack>
-          </Paper>
-        </motion.div>
-      </Stack>
+                <Coffee className="w-6 h-6 text-yellow-500" />
+                <span>Buy Me A Coffee</span>
+              </a>
+              <a
+                href="https://github.com/sponsors/HillaryKoros"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-3 px-6 py-4 bg-card border border-border rounded-xl text-lg font-semibold text-foreground hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
+              >
+                <FaGithub className="w-6 h-6" />
+                <span>GitHub Sponsors</span>
+              </a>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </motion.div>
   );
 };
