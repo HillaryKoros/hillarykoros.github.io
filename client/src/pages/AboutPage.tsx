@@ -13,18 +13,18 @@ const AboutPage: React.FC = () => {
       className="space-y-16"
     >
       {/* Hero Section */}
-      <section className="py-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+      <section className="py-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
           About Me
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground leading-loose text-justify mb-8">
+        <p className="text-base text-muted-foreground leading-relaxed text-justify mb-6">
           I transform complex geospatial data into operational tools that drive real-world impact through designing ETL pipelines,
           spatial databases, and web applications for decision support, early warning, land information, and AI/ML systems
           across Africa and beyond.
         </p>
 
         {/* Skill Tags */}
-        <div className="flex flex-wrap gap-3">
+        <div className="flex flex-wrap gap-2">
           {[
             { label: 'GIS & Remote Sensing', color: 'bg-blue-500/10 text-blue-600 border-blue-500/30' },
             { label: 'Spatial Databases', color: 'bg-green-500/10 text-green-600 border-green-500/30' },
@@ -37,7 +37,7 @@ const AboutPage: React.FC = () => {
           ].map((skill, index) => (
             <span
               key={index}
-              className={`px-5 py-2.5 rounded-full text-base font-semibold border ${skill.color}`}
+              className={`px-3 py-1.5 rounded-full text-sm font-medium border ${skill.color}`}
             >
               {skill.label}
             </span>
@@ -47,11 +47,11 @@ const AboutPage: React.FC = () => {
 
       {/* Areas of Expertise */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+        <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
           Areas of Expertise
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {services.primary.map((service, index) => (
             <motion.div
               key={index}
@@ -59,11 +59,11 @@ const AboutPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-card border border-border rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+              className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
-              <div className="text-5xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{service.title}</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed">{service.description}</p>
+              <div className="text-4xl mb-3">{service.icon}</div>
+              <h3 className="text-base font-bold text-foreground mb-2">{service.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </div>
@@ -71,11 +71,11 @@ const AboutPage: React.FC = () => {
 
       {/* Creative Interests */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+        <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
           Creative Interests
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {services.creative.map((service, index) => (
             <motion.div
               key={index}
@@ -83,11 +83,11 @@ const AboutPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-card border border-border rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+              className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
-              <div className="text-5xl mb-4">{service.icon}</div>
-              <h3 className="text-xl font-bold text-foreground mb-3">{service.title}</h3>
-              <p className="text-lg text-muted-foreground leading-relaxed">{service.description}</p>
+              <div className="text-4xl mb-3">{service.icon}</div>
+              <h3 className="text-base font-bold text-foreground mb-2">{service.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </div>
@@ -95,11 +95,11 @@ const AboutPage: React.FC = () => {
 
       {/* Languages */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+        <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
           Languages
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {humanLanguages.map((lang, index) => (
             <motion.div
               key={index}
@@ -107,11 +107,11 @@ const AboutPage: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="bg-card border border-border rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-200"
+              className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
             >
-              <div className="text-4xl font-bold text-primary mb-3">{lang.code}</div>
-              <h3 className="text-xl font-bold text-foreground mb-2">{lang.name}</h3>
-              <p className="text-lg text-muted-foreground">{lang.label}</p>
+              <div className="text-2xl font-bold text-primary mb-2">{lang.code}</div>
+              <h3 className="text-base font-bold text-foreground mb-1">{lang.name}</h3>
+              <p className="text-sm text-muted-foreground">{lang.label}</p>
             </motion.div>
           ))}
         </div>
@@ -119,7 +119,7 @@ const AboutPage: React.FC = () => {
 
       {/* Technologies */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+        <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
           Technologies & Tools
         </h2>
         <TechGrid />

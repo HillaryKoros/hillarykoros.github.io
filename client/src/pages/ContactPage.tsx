@@ -61,11 +61,11 @@ const ContactPage: React.FC = () => {
       className="space-y-12"
     >
       {/* Hero */}
-      <section className="py-8">
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+      <section className="py-6">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
           Let's Connect
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground leading-loose text-justify">
+        <p className="text-base text-muted-foreground leading-relaxed text-justify">
           Have a project in mind or want to collaborate? I'm always open to discussing new opportunities
           in geospatial technology, data science, and web development.
         </p>
@@ -73,10 +73,10 @@ const ContactPage: React.FC = () => {
 
       {/* Contact Actions */}
       <section>
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-8">
+        <h2 className="text-xl md:text-2xl font-bold text-foreground mb-6">
           Get In Touch
         </h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {contactActions.map((action, index) => {
             const IconComponent = action.Icon;
             return (
@@ -86,12 +86,12 @@ const ContactPage: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 onClick={() => handleAction(action)}
-                className="bg-card border border-border rounded-2xl p-8 text-center hover:shadow-xl hover:-translate-y-1 transition-all duration-200 cursor-pointer"
+                className="bg-card border border-border rounded-xl p-6 text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-200 cursor-pointer"
               >
-                <div className={`w-20 h-20 ${action.color} rounded-full flex items-center justify-center mx-auto mb-5`}>
-                  <IconComponent className="w-10 h-10 text-white" />
+                <div className={`w-14 h-14 ${action.color} rounded-full flex items-center justify-center mx-auto mb-3`}>
+                  <IconComponent className="w-7 h-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground">{action.label}</h3>
+                <h3 className="text-base font-bold text-foreground">{action.label}</h3>
               </motion.button>
             );
           })}
@@ -100,21 +100,21 @@ const ContactPage: React.FC = () => {
 
       {/* Location & Support */}
       <section>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Location */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3 }}
-            className="bg-card border border-border rounded-2xl p-8"
+            className="bg-card border border-border rounded-xl p-6"
           >
-            <div className="flex items-center gap-5">
-              <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center">
-                <MapPin className="w-10 h-10 text-blue-500" />
+            <div className="flex items-center gap-4">
+              <div className="w-14 h-14 bg-blue-500/10 rounded-full flex items-center justify-center">
+                <MapPin className="w-7 h-7 text-blue-500" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground">{contactInfo.location.title}</h3>
-                <p className="text-xl text-muted-foreground">{contactInfo.location.value}</p>
+                <h3 className="text-base font-bold text-foreground">{contactInfo.location.title}</h3>
+                <p className="text-sm text-muted-foreground">{contactInfo.location.value}</p>
               </div>
             </div>
           </motion.div>
@@ -124,34 +124,34 @@ const ContactPage: React.FC = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.3, delay: 0.1 }}
-            className="bg-card border border-border rounded-2xl p-8"
+            className="bg-card border border-border rounded-xl p-6"
           >
-            <div className="flex items-center gap-5 mb-6">
-              <div className="w-20 h-20 bg-pink-500/10 rounded-full flex items-center justify-center">
-                <Heart className="w-10 h-10 text-pink-500" fill="currentColor" />
+            <div className="flex items-center gap-4 mb-4">
+              <div className="w-14 h-14 bg-pink-500/10 rounded-full flex items-center justify-center">
+                <Heart className="w-7 h-7 text-pink-500" fill="currentColor" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground">{contactInfo.support.title}</h3>
-                <p className="text-lg text-muted-foreground">{contactInfo.support.subtitle}</p>
+                <h3 className="text-base font-bold text-foreground">{contactInfo.support.title}</h3>
+                <p className="text-sm text-muted-foreground">{contactInfo.support.subtitle}</p>
               </div>
             </div>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-3">
               <a
                 href="https://buymeacoffee.com/hillarykoros"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-6 py-4 bg-card border border-border rounded-xl text-lg font-semibold text-foreground hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-foreground hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
               >
-                <Coffee className="w-6 h-6 text-yellow-500" />
+                <Coffee className="w-4 h-4 text-yellow-500" />
                 <span>Buy Me A Coffee</span>
               </a>
               <a
                 href="https://github.com/sponsors/HillaryKoros"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-6 py-4 bg-card border border-border rounded-xl text-lg font-semibold text-foreground hover:-translate-y-1 hover:shadow-xl transition-all duration-200"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card border border-border rounded-lg text-sm font-medium text-foreground hover:-translate-y-1 hover:shadow-lg transition-all duration-200"
               >
-                <FaGithub className="w-6 h-6" />
+                <FaGithub className="w-4 h-4" />
                 <span>GitHub Sponsors</span>
               </a>
             </div>

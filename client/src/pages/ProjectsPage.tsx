@@ -83,11 +83,11 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onViewProject }) => {
     >
       <Stack spacing={4}>
         {/* Hero */}
-        <section className="py-8">
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
+        <section className="py-6">
+          <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
             My Projects
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground leading-loose text-justify">
+          <p className="text-base text-muted-foreground leading-relaxed text-justify">
             A collection of my work in geospatial technology, data science, and web development.
             From early warning systems to interactive mapping applications.
           </p>
