@@ -10,41 +10,51 @@ export const services: {
 } = {
   primary: [
     {
-      title: "Geospatial Technology",
-      description: "Expert in GIS mapping, remote sensing image processing, and spatial database management for location-based analytics and decision support systems.",
+      title: "GIS & Spatial Analysis",
+      description: "Working with ArcGIS Pro, QGIS, and Google Earth Engine for mapping, spatial analysis, and building location-based applications.",
       icon: "🌍"
     },
     {
-      title: "AI & Data Science",
-      description: "Applying machine learning and AI techniques for geospatial big data analysis, predictive modeling, and automation of complex spatial analytics workflows.",
-      icon: "📊"
+      title: "Remote Sensing",
+      description: "Processing satellite imagery from Sentinel and Landsat for land cover mapping, vegetation monitoring, and environmental analysis.",
+      icon: "🛰️"
     },
     {
-      title: "Full Stack Development",
-      description: "Building interactive web applications with modern JavaScript frameworks, RESTful APIs, and database integrations for location-enabled solutions.",
+      title: "Web Development",
+      description: "Building web applications using React, Python (FastAPI), and integrating mapping libraries like Leaflet and Mapbox.",
       icon: "💻"
     },
     {
-      title: "Spatial Analysis",
-      description: "Utilizing advanced GIS and remote sensing techniques to analyze and derive insights from complex geospatial datasets.",
-      icon: "🔍"
+      title: "Data Science",
+      description: "Data analysis and machine learning with Python, R, and SQL for spatial predictions and pattern recognition.",
+      icon: "📈"
+    },
+    {
+      title: "Spatial Databases",
+      description: "Managing geospatial data with PostgreSQL/PostGIS, writing spatial queries, and designing database schemas.",
+      icon: "🗄️"
+    },
+    {
+      title: "Hydrology & Early Warning",
+      description: "Contributing to flood monitoring systems and working with hydrological models for disaster risk assessment.",
+      icon: "💧"
     }
   ],
   creative: [
     {
-      title: "Cartography and Visual Storytelling",
-      description: "Using maps as dynamic tools to narrate stories of historical events, cultural landscapes, and environmental changes, enriching our understanding of the world through captivating visuals.",
+      title: "Cartography",
+      description: "Designing maps that clearly communicate spatial information with attention to layout and visual hierarchy.",
       icon: "🗺️"
     },
     {
-      title: "Digital Content Creation",
-      description: "Generating a range of digital elements, from 3D models, graphics, animations, and videos to AI-generated content, leveraging cutting-edge tools and techniques to craft immersive and engaging experiences.",
-      icon: "🎨"
+      title: "Data Visualization",
+      description: "Creating charts, dashboards, and interactive visualizations to present complex data clearly.",
+      icon: "📊"
     },
     {
-      title: "Investing & Financial Analysis",
-      description: "Exploring markets and financial instruments using data-driven approaches and fundamental analysis to identify growth opportunities and manage risk for long-term wealth building.",
-      icon: "📈"
+      title: "Documentation",
+      description: "Writing technical documentation, tutorials, and guides for GIS workflows and software tools.",
+      icon: "📝"
     }
   ]
 };

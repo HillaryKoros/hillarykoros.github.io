@@ -57,13 +57,3 @@ server/public
 .eslintcache
 .stylelintcache
 
-# Replit specific files
-.replit
-.config/
-.upm/
-replit.nix
-.breakpoints
-.gitattributes
-.replrc
-.replignore
-.replit_history

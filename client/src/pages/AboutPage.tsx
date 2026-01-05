@@ -1,213 +1,488 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import ServiceCard from '../components/ServiceCard';
-import SkillBar from '../components/SkillBar';
-import TechScroll from '../components/TechScroll';
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
+  Chip,
+  Stack,
+  Paper
+} from '@mui/material';
+import {
+  Code as CodeIcon,
+  Storage as StorageIcon,
+  Psychology as PsychologyIcon,
+  BarChart as BarChartIcon,
+  Public as PublicIcon,
+  Cloud as CloudIcon,
+  Videocam as VideocamIcon,
+  MusicNote as MusicIcon,
+  PhotoCamera as PhotoIcon,
+  Satellite as SatelliteIcon,
+  TrendingUp as TrendingUpIcon,
+  Water as WaterIcon,
+  Map as MapIcon,
+  Description as DescriptionIcon
+} from '@mui/icons-material';
+import TechGrid from '../components/TechGrid';
 import { services } from '../data/services';
-import { programmingSkills, humanLanguages } from '../data/skills';
-import { technologies } from '../data/technologies';
+import { humanLanguages } from '../data/skills';
+
+const skillTags = [
+  "GIS & Remote Sensing",
+  "Spatial Databases",
+  "Machine Learning",
+  "Data Visualization",
+  "Full Stack Development",
+  "Climate Technology",
+  "Cloud Computing",
+  "DevOps"
+];
+
+const iconMap: Record<string, React.ElementType> = {
+  '🌍': PublicIcon,
+  '🛰️': SatelliteIcon,
+  '💻': CodeIcon,
+  '📈': TrendingUpIcon,
+  '🗄️': StorageIcon,
+  '💧': WaterIcon,
+  '🗺️': MapIcon,
+  '📊': BarChartIcon,
+  '📝': DescriptionIcon,
+  '🧠': PsychologyIcon,
+  '☁️': CloudIcon,
+  '🎬': VideocamIcon,
+  '🎵': MusicIcon,
+  '📷': PhotoIcon
+};
+
+const colorPalette = ['#3b82f6', '#22c55e', '#8b5cf6', '#f97316', '#06b6d4', '#ec4899'];
 
 const AboutPage: React.FC = () => {
   return (
-    <motion.section
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="animate-fade-in"
+      transition={{ duration: 0.4 }}
     >
-      {/* Hero Section with Professional Summary */}
-      <motion.div
-        className="relative bg-gradient-to-br from-background/80 to-background rounded-3xl shadow-lg mb-10 overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        {/* Background Accent */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-bl from-primary/10 to-transparent rounded-l-full"></div>
-        <div className="absolute bottom-0 left-0 w-1/2 h-1/3 bg-gradient-to-tr from-secondary/10 to-transparent rounded-tr-full"></div>
-        
-        <div className="relative z-10 p-6 sm:p-8">
+      <Stack spacing={4}>
+        {/* Hero Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4 }}
+        >
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 4, md: 6 },
+              borderRadius: 4,
+              background: 'linear-gradient(135deg, hsl(var(--card)) 0%, hsl(var(--primary) / 0.08) 50%, hsl(var(--secondary) / 0.15) 100%)',
+              border: '2px solid hsl(var(--border))',
+              position: 'relative',
+              overflow: 'hidden',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: -50,
+                right: -50,
+                width: 250,
+                height: 250,
+                borderRadius: '50%',
+                background: 'hsl(var(--primary) / 0.12)',
+                filter: 'blur(50px)'
+              },
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: -80,
+                left: -80,
+                width: 200,
+                height: 200,
+                borderRadius: '50%',
+                background: 'linear-gradient(135deg, #8b5cf620 0%, #3b82f620 100%)',
+                filter: 'blur(40px)'
+              }
+            }}
+          >
+            <Box sx={{ position: 'relative', zIndex: 1 }}>
+              <Typography
+                variant="h2"
+                component="h1"
+                fontWeight={800}
+                sx={{ mb: 2, color: 'hsl(var(--foreground))', fontSize: { xs: '2.2rem', md: '2.8rem' } }}
+              >
+                About Me
+              </Typography>
+              <Box
+                sx={{
+                  height: 6,
+                  width: 100,
+                  background: 'linear-gradient(90deg, hsl(var(--primary)) 0%, #8b5cf6 100%)',
+                  borderRadius: 3,
+                  mb: 4
+                }}
+              />
+              <Typography
+                variant="body1"
+                sx={{
+                  color: 'hsl(var(--foreground) / 0.9)',
+                  fontWeight: 400,
+                  lineHeight: 2,
+                  fontSize: { xs: '1.1rem', md: '1.2rem' },
+                  mb: 4,
+                  textAlign: 'justify'
+                }}
+              >
+                Geospatial technology expert with deep expertise in Geographic Information Systems (GIS),
+                remote sensing, and full-stack software development. I specialize in building data-driven solutions
+                for complex spatial challenges, transforming raw geospatial data into actionable insights through
+                interactive visualizations and automated workflows. My work spans from developing early warning systems
+                that help communities prepare for climate-related disasters to creating interactive web mapping applications
+                that make spatial data accessible and understandable.
+              </Typography>
+              <Stack direction="row" spacing={1.5} flexWrap="wrap" useFlexGap sx={{ position: 'relative', zIndex: 1 }}>
+                {skillTags.map((tag, index) => {
+                  const color = colorPalette[index % colorPalette.length];
+                  return (
+                    <Chip
+                      key={tag}
+                      label={tag}
+                      sx={{
+                        background: `linear-gradient(135deg, ${color}18 0%, ${color}08 100%)`,
+                        border: `1.5px solid ${color}35`,
+                        color: 'hsl(var(--foreground))',
+                        fontWeight: 600,
+                        fontSize: '0.9rem',
+                        py: 0.5,
+                        height: 'auto',
+                        borderRadius: 2,
+                        transition: 'all 0.3s ease',
+                        '& .MuiChip-label': {
+                          px: 1.5,
+                          py: 0.8
+                        },
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          background: `linear-gradient(135deg, ${color}28 0%, ${color}15 100%)`,
+                          borderColor: color,
+                          boxShadow: `0 6px 20px ${color}25`
+                        }
+                      }}
+                    />
+                  );
+                })}
+              </Stack>
+            </Box>
+          </Paper>
+        </motion.div>
+
+        {/* Areas of Expertise */}
+        <Box>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="flex flex-col gap-4"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
           >
-            <div className="w-full">
-              <h2 className="text-3xl font-bold text-foreground mb-1">About Me</h2>
-              <div className="h-1 w-20 bg-primary mb-3 rounded-full"></div>
-            </div>
-            
-            <div className="w-full">
-              <div className="prose dark:prose-invert">
-                <p className="leading-relaxed mb-3 text-lg">
-                  A skilled geospatial technology expert combining AI/data science and full-stack development capabilities to create innovative solutions for complex spatial challenges through insightful analytics and modern web applications.
-                </p>
-                <div className="flex flex-wrap gap-2 mt-3">
-                  {[
-                    {tag: "GIS & Remote Sensing", color: "bg-blue-400/50 text-blue-900 dark:text-blue-100"},
-                    {tag: "Spatial Databases", color: "bg-green-400/50 text-green-900 dark:text-green-100"},
-                    {tag: "Machine Learning", color: "bg-purple-400/50 text-purple-900 dark:text-purple-100"},
-                    {tag: "Data Visualization", color: "bg-amber-400/50 text-amber-900 dark:text-amber-100"},
-                    {tag: "Web Development", color: "bg-rose-400/50 text-rose-900 dark:text-rose-100"}
-                  ].map((item, index) => (
-                    <span 
-                      key={index} 
-                      className={`text-base font-medium ${item.color} px-3 py-1 rounded-full`}
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
+              <Box sx={{ height: 40, width: 6, background: 'linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%)', borderRadius: 1 }} />
+              <Typography variant="h4" fontWeight={800} sx={{ color: 'hsl(var(--foreground))', fontSize: { xs: '1.6rem', md: '2rem' } }}>
+                Areas of Expertise
+              </Typography>
+            </Stack>
+          </motion.div>
+
+          <Grid container spacing={3}>
+            {services.primary.map((service, index) => {
+              const color = colorPalette[index % colorPalette.length];
+              const IconComponent = iconMap[service.icon] || CodeIcon;
+              return (
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    style={{ height: '100%' }}
+                  >
+                    <Card
+                      elevation={0}
+                      sx={{
+                        height: '100%',
+                        borderRadius: 4,
+                        border: '2px solid hsl(var(--border))',
+                        background: `linear-gradient(145deg, hsl(var(--card)) 0%, ${color}12 100%)`,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: '4px',
+                          background: `linear-gradient(90deg, ${color} 0%, ${color}80 100%)`,
+                          opacity: 0,
+                          transition: 'opacity 0.3s ease'
+                        },
+                        '&:hover': {
+                          borderColor: color,
+                          transform: 'translateY(-8px)',
+                          boxShadow: `0 20px 40px ${color}25`,
+                          '&::before': {
+                            opacity: 1
+                          }
+                        }
+                      }}
                     >
-                      {item.tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </motion.div>
-      
-      {/* Primary Focus Section */}
-      <div className="mb-12">
-        <motion.div
-          className="flex items-center mb-6 gap-2"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="h-8 w-1 bg-primary rounded-full"></div>
-          <h2 className="text-2xl font-semibold">Areas of Expertise</h2>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-          {services.primary.map((service, index) => (
-            <ServiceCard
-              key={index}
-              title={service.title}
-              description={service.description}
-              icon={service.icon}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Creative Section */}
-      <div className="mb-12">
-        <motion.div
-          className="flex items-center mb-6 gap-2"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="h-8 w-1 bg-secondary rounded-full"></div>
-          <h2 className="text-2xl font-semibold">Exploring Creativity</h2>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-          {services.creative.map((service, index) => (
-            <ServiceCard
-              key={index}
-              title={service.title}
-              description={service.description}
-              icon={service.icon}
-            />
-          ))}
-        </div>
-      </div>
-      
-      {/* Skills Section */}
-      <div className="mb-12">
-        <motion.div
-          className="flex items-center mb-6 gap-2"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="h-8 w-1 bg-accent rounded-full"></div>
-          <h2 className="text-2xl font-semibold">Language Proficiency</h2>
-        </motion.div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* Programming Languages */}
-          <motion.div 
-            className="bg-card dark:bg-card rounded-xl shadow-md p-6 border border-border/50"
+                      <CardContent sx={{ p: 4 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'flex-start' }}>
+                          <Box
+                            sx={{
+                              width: 72,
+                              height: 72,
+                              minWidth: 72,
+                              flexShrink: 0,
+                              borderRadius: 3,
+                              background: `linear-gradient(145deg, ${color}25 0%, ${color}15 100%)`,
+                              border: `2px solid ${color}40`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              boxShadow: `0 4px 15px ${color}20`
+                            }}
+                          >
+                            <IconComponent sx={{ fontSize: 36, color }} />
+                          </Box>
+                          <Box sx={{ flex: 1 }}>
+                            <Typography
+                              variant="h6"
+                              fontWeight={700}
+                              sx={{ mb: 1.5, color: 'hsl(var(--foreground))', fontSize: '1.2rem', lineHeight: 1.3 }}
+                            >
+                              {service.title}
+                            </Typography>
+                            <Typography
+                              variant="body1"
+                              sx={{ color: 'hsl(var(--muted-foreground))', lineHeight: 1.8, fontSize: '1rem' }}
+                            >
+                              {service.description}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+
+        {/* Creative Interests */}
+        <Box>
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="m18 16 4-4-4-4"/>
-                  <path d="m6 8-4 4 4 4"/>
-                  <path d="m14.5 4-5 16"/>
-                </svg>
-              </div>
-              <h3 className="font-medium text-lg">Programming Languages</h3>
-            </div>
-            
-            <div className="space-y-4">
-              {programmingSkills.map((skill, index) => (
-                <SkillBar
-                  key={index}
-                  name={skill.name}
-                  percentage={skill.percentage}
-                />
-              ))}
-            </div>
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
+              <Box sx={{ height: 40, width: 6, background: 'linear-gradient(180deg, #f97316 0%, #ec4899 100%)', borderRadius: 1 }} />
+              <Typography variant="h4" fontWeight={800} sx={{ color: 'hsl(var(--foreground))', fontSize: { xs: '1.6rem', md: '2rem' } }}>
+                Creative Interests
+              </Typography>
+            </Stack>
           </motion.div>
-          
-          {/* Human Languages */}
-          <motion.div 
-            className="bg-card dark:bg-card rounded-xl shadow-md p-6 border border-border/50"
+
+          <Grid container spacing={3}>
+            {services.creative.map((service, index) => {
+              const color = colorPalette[(index + 3) % colorPalette.length];
+              const IconComponent = iconMap[service.icon] || PhotoIcon;
+              return (
+                <Grid size={{ xs: 12, sm: 4 }} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    style={{ height: '100%' }}
+                  >
+                    <Card
+                      elevation={0}
+                      sx={{
+                        height: '100%',
+                        borderRadius: 4,
+                        border: '2px solid hsl(var(--border))',
+                        background: `linear-gradient(145deg, hsl(var(--card)) 0%, ${color}12 100%)`,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: '4px',
+                          background: `linear-gradient(90deg, ${color} 0%, ${color}80 100%)`,
+                          opacity: 0,
+                          transition: 'opacity 0.3s ease'
+                        },
+                        '&:hover': {
+                          borderColor: color,
+                          transform: 'translateY(-8px)',
+                          boxShadow: `0 20px 40px ${color}25`,
+                          '&::before': {
+                            opacity: 1
+                          }
+                        }
+                      }}
+                    >
+                      <CardContent sx={{ p: 4 }}>
+                        <Box sx={{ display: 'flex', flexDirection: 'row', gap: 3, alignItems: 'flex-start' }}>
+                          <Box
+                            sx={{
+                              width: 72,
+                              height: 72,
+                              minWidth: 72,
+                              flexShrink: 0,
+                              borderRadius: 3,
+                              background: `linear-gradient(145deg, ${color}25 0%, ${color}15 100%)`,
+                              border: `2px solid ${color}40`,
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              boxShadow: `0 4px 15px ${color}20`
+                            }}
+                          >
+                            <IconComponent sx={{ fontSize: 36, color }} />
+                          </Box>
+                          <Box sx={{ flex: 1 }}>
+                            <Typography
+                              variant="h6"
+                              fontWeight={700}
+                              sx={{ mb: 1.5, color: 'hsl(var(--foreground))', fontSize: '1.2rem', lineHeight: 1.3 }}
+                            >
+                              {service.title}
+                            </Typography>
+                            <Typography
+                              variant="body1"
+                              sx={{ color: 'hsl(var(--muted-foreground))', lineHeight: 1.8, fontSize: '1rem' }}
+                            >
+                              {service.description}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+
+        {/* Languages */}
+        <Box>
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
           >
-            <div className="flex items-center mb-4">
-              <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mr-3">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-                  <path d="m2 12 20 0"/>
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                </svg>
-              </div>
-              <h3 className="font-medium text-lg">Human Languages</h3>
-            </div>
-            
-            <div className="space-y-4">
-              {humanLanguages.map((language, index) => (
-                <SkillBar
-                  key={index}
-                  name={language.name}
-                  percentage={language.percentage}
-                  label={language.label}
-                />
-              ))}
-            </div>
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
+              <Box sx={{ height: 40, width: 6, background: 'linear-gradient(180deg, #22c55e 0%, #06b6d4 100%)', borderRadius: 1 }} />
+              <Typography variant="h4" fontWeight={800} sx={{ color: 'hsl(var(--foreground))', fontSize: { xs: '1.6rem', md: '2rem' } }}>
+                Languages
+              </Typography>
+            </Stack>
           </motion.div>
-        </div>
-      </div>
-      
-      {/* Development Tools Section */}
-      <div className="mb-6">
-        <motion.div
-          className="flex items-center mb-6 gap-2"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-        >
-          <div className="h-8 w-1 bg-primary rounded-full"></div>
-          <h2 className="text-2xl font-semibold">Technologies & Tools</h2>
-        </motion.div>
-        
-        <TechScroll technologies={technologies} />
-      </div>
-    </motion.section>
+
+          <Grid container spacing={3}>
+            {humanLanguages.map((lang, index) => {
+              const color = colorPalette[(index + 1) % colorPalette.length];
+              return (
+                <Grid size={{ xs: 6, sm: 3 }} key={index}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                  >
+                    <Paper
+                      elevation={0}
+                      sx={{
+                        p: 4,
+                        borderRadius: 4,
+                        border: '2px solid hsl(var(--border))',
+                        background: `linear-gradient(145deg, hsl(var(--card)) 0%, ${color}12 100%)`,
+                        textAlign: 'center',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: '4px',
+                          background: `linear-gradient(90deg, ${color} 0%, ${color}80 100%)`,
+                          opacity: 0,
+                          transition: 'opacity 0.3s ease'
+                        },
+                        '&:hover': {
+                          borderColor: color,
+                          transform: 'translateY(-6px)',
+                          boxShadow: `0 15px 35px ${color}25`,
+                          '&::before': {
+                            opacity: 1
+                          }
+                        }
+                      }}
+                    >
+                      <Typography
+                        variant="h5"
+                        fontWeight={800}
+                        sx={{ color: 'hsl(var(--foreground))', mb: 1.5, fontSize: '1.5rem' }}
+                      >
+                        {lang.name}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        sx={{ color: 'hsl(var(--muted-foreground))', fontSize: '1.05rem', fontWeight: 500 }}
+                      >
+                        {lang.label}
+                      </Typography>
+                    </Paper>
+                  </motion.div>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+
+        {/* Technologies */}
+        <Box>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+          >
+            <Stack direction="row" alignItems="center" spacing={2} sx={{ mb: 4 }}>
+              <Box sx={{ height: 40, width: 6, background: 'linear-gradient(180deg, #8b5cf6 0%, #3b82f6 100%)', borderRadius: 1 }} />
+              <Typography variant="h4" fontWeight={800} sx={{ color: 'hsl(var(--foreground))', fontSize: { xs: '1.6rem', md: '2rem' } }}>
+                Technologies & Tools
+              </Typography>
+            </Stack>
+          </motion.div>
+
+          <TechGrid />
+        </Box>
+      </Stack>
+    </motion.div>
   );
 };
 

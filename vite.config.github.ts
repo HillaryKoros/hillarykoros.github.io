@@ -1,18 +1,17 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
-import path from "path";
+import path, { dirname } from "path";
+import { fileURLToPath } from "url";
 
-// GitHub Pages-specific build configuration
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 export default defineConfig({
-  plugins: [react(), themePlugin()],
-  // For username.github.io repos, base should be "/"
-  base: "./", // Using relative paths for better compatibility
+  plugins: [react()],
+  base: "./",
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "client/src"),
-      "@shared": path.resolve(__dirname, "shared"),
-      "@assets": path.resolve(__dirname, "attached_assets"),
+      "@": path.resolve(__dirname, "client", "src"),
     },
   },
   root: path.resolve(__dirname, "client"),

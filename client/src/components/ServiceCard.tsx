@@ -9,21 +9,20 @@ interface ServiceCardProps {
 
 const ServiceCard: React.FC<ServiceCardProps> = ({ title, description, icon }) => {
   return (
-    <motion.div 
-      className="bg-card dark:bg-card rounded-xl shadow-md p-4 sm:p-6 transition-all h-full"
-      whileHover={{ scale: 1.02, boxShadow: "0 10px 25px rgba(0,0,0,0.1)" }}
+    <motion.div
+      className="bg-card rounded-xl p-5 border border-border/50 h-full hover:border-primary/30 transition-colors"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.4 }}
       viewport={{ once: true }}
     >
-      <div className="flex flex-col sm:flex-row gap-4 items-start">
-        <div className="w-12 h-12 rounded-lg bg-neutral-200 dark:bg-neutral-800 flex items-center justify-center flex-shrink-0 text-xl shadow-sm">
+      <div className="flex items-start gap-4">
+        <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-lg">
           {icon}
         </div>
-        <div>
-          <h4 className="font-medium mb-2 text-primary">{title}</h4>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
+        <div className="flex-1 min-w-0">
+          <h4 className="font-semibold text-foreground mb-1.5">{title}</h4>
+          <p className="text-sm text-muted-foreground leading-relaxed">
             {description}
           </p>
         </div>
