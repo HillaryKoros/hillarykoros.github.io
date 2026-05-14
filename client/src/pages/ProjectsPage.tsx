@@ -17,19 +17,20 @@ interface ProjectsPageProps {
 const statusConfig = {
   operational: { title: 'Operational', color: '#22c55e' },
   ongoing: { title: 'Ongoing', color: '#3b82f6' },
+  completed: { title: 'Completed', color: '#8b5cf6' },
   planned: { title: 'Planned', color: '#f97316' }
 };
 
 const ProjectsPage: React.FC<ProjectsPageProps> = ({ onViewProject }) => {
   const groupedProjects = useMemo(() => {
-    const groups: Record<string, Project[]> = { operational: [], ongoing: [], planned: [] };
+    const groups: Record<string, Project[]> = { operational: [], ongoing: [], completed: [], planned: [] };
     projects.forEach(project => {
       if (groups[project.status]) groups[project.status].push(project);
     });
     return groups;
   }, []);
 
-  const renderProjectSection = (status: 'operational' | 'ongoing' | 'planned', projectList: Project[]) => {
+  const renderProjectSection = (status: 'operational' | 'ongoing' | 'completed' | 'planned', projectList: Project[]) => {
     if (projectList.length === 0) return null;
     const config = statusConfig[status];
 
@@ -59,6 +60,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onViewProject }) => {
                   title={project.title}
                   description={project.description}
                   imageSrc={project.imageSrc}
+                  iconKey={project.iconKey}
                   gradient={project.gradient}
                   categories={project.displayCategories}
                   technologies={project.technologies}
@@ -97,6 +99,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ onViewProject }) => {
         <Box>
           {renderProjectSection('operational', groupedProjects.operational)}
           {renderProjectSection('ongoing', groupedProjects.ongoing)}
+          {renderProjectSection('completed', groupedProjects.completed)}
           {renderProjectSection('planned', groupedProjects.planned)}
         </Box>
       </Stack>

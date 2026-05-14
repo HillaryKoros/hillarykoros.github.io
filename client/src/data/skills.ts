@@ -32,25 +32,19 @@ export const humanLanguages: Skill[] = [
   {
     name: "English",
     percentage: 100,
-    label: "Fluent",
+    label: "Professional working proficiency",
     code: "EN"
   },
   {
     name: "Kiswahili",
     percentage: 100,
-    label: "Ufasaha",
+    label: "Native",
     code: "SW"
   },
   {
-    name: "Kalenjin",
+    name: "Kipsigis",
     percentage: 100,
-    label: "Amuche Angalal ak Asir",
-    code: "KLN"
-  },
-  {
-    name: "Chinese",
-    percentage: 10,
-    label: "初学者",
-    code: "ZH"
+    label: "Native",
+    code: "KIP"
   }
 ];

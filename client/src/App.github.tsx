@@ -37,7 +37,7 @@ function App() {
       <div className={`flex h-screen items-center justify-center ${theme === 'dark' ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'}`}>
         <div className="text-center">
           <h1 className="text-3xl font-bold mb-4">Hillary Koros</h1>
-          <p className="text-xl mb-6">GIS & Mapping Specialist</p>
+          <p className="text-xl mb-6">Geospatial Engineer · ICPAC</p>
           <div className="inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]" role="status">
             <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">Loading...</span>
           </div>

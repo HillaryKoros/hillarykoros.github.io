@@ -3,14 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <meta http-equiv="Content-Type" content="text/javascript; charset=utf-8" />
-    <title>Hillary Koros - Portfolio</title>
-    <!-- Explicitly set MIME type for JavaScript files -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+
+    <title>Hillary Koros — GIS Researcher & Engineer | ICPAC, Hydroinformatics & Cloud-Native Earth Observation</title>
+    <meta name="description" content="Hillary Koros — GIS Researcher & Engineer at ICPAC. Operational flood early warning, multi-model hydrological forecasting, and cloud-native Earth observation pipelines for the Greater Horn of Africa." />
+    <meta name="author" content="Hillary Koros" />
+    <meta name="keywords" content="Hillary Koros, ICPAC, geospatial engineer, hydroinformatics, flood early warning, Earth observation, GRIB, Kerchunk, GeoSFM, FLOODPROOFS, WRF, PostGIS, cloud-native geospatial, Greater Horn of Africa, Nairobi" />
+    <link rel="canonical" href="https://hillarykoros.github.io/" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://hillarykoros.github.io/" />
+    <meta property="og:title" content="Hillary Koros — Geospatial Engineer at ICPAC" />
+    <meta property="og:description" content="Operational flood early warning, multi-model hydrological forecasting, and cloud-native Earth observation pipelines across the Greater Horn of Africa." />
+    <meta property="og:image" content="https://hillarykoros.github.io/assets/avatar.jpg" />
+    <meta property="og:site_name" content="Hillary Koros" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@Hill_Koros" />
+    <meta name="twitter:title" content="Hillary Koros — Geospatial Engineer at ICPAC" />
+    <meta name="twitter:description" content="Flood early warning, multi-model hydrology, cloud-native Earth observation across the Greater Horn of Africa." />
+    <meta name="twitter:image" content="https://hillarykoros.github.io/assets/avatar.jpg" />
+
+    <!-- JSON-LD: Person schema so search engines render a rich preview even without JS -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hillary Koros",
+      "url": "https://hillarykoros.github.io/",
+      "image": "https://hillarykoros.github.io/assets/avatar.jpg",
+      "jobTitle": "GIS Researcher & Engineer",
+      "worksFor": {
+        "@type": "Organization",
+        "name": "IGAD Climate Prediction and Applications Centre (ICPAC)",
+        "url": "https://www.icpac.net/"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Nairobi",
+        "addressCountry": "KE"
+      },
+      "sameAs": [
+        "https://github.com/HillaryKoros",
+        "https://www.linkedin.com/in/hillarykoros",
+        "https://x.com/Hill_Koros"
+      ],
+      "knowsAbout": [
+        "Hydroinformatics",
+        "Flood Early Warning",
+        "Earth Observation",
+        "Cloud-Native Geospatial",
+        "GRIB / Kerchunk / Zarr",
+        "PostGIS",
+        "Hydrological Modeling"
+      ]
+    }
+    </script>
+
+    <!-- Static fallback so crawlers and link previews see meaningful content even before JS executes -->
+    <meta name="robots" content="index, follow, max-image-preview:large" />
   </head>
   <body>
-    <div id="root"></div>
-    <!-- Use relative path to work on GitHub Pages with various base paths -->
+    <div id="root">
+      <noscript>
+        <h1>Hillary Koros</h1>
+        <p>Geospatial Engineer at ICPAC (IGAD Climate Prediction and Applications Centre). I build operational flood early warning systems, multi-model hydrological forecasting pipelines, and cloud-native Earth observation infrastructure for the Greater Horn of Africa.</p>
+        <p>Contact: <a href="mailto:koroshillary12@gmail.com">koroshillary12@gmail.com</a> · <a href="https://github.com/HillaryKoros">GitHub</a> · <a href="https://www.linkedin.com/in/hillarykoros">LinkedIn</a></p>
+      </noscript>
+    </div>
     <script type="module" src="./src/main.tsx"></script>
   </body>
 </html>

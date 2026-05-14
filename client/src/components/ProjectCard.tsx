@@ -1,5 +1,27 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import {
+  Waves,
+  Cloud,
+  Workflow,
+  Map,
+  BookOpen,
+  Repeat,
+  HeartPulse,
+  LineChart,
+  LucideIcon
+} from 'lucide-react';
+
+const projectIconMap: Record<string, LucideIcon> = {
+  waves: Waves,
+  cloud: Cloud,
+  workflow: Workflow,
+  map: Map,
+  book: BookOpen,
+  swap: Repeat,
+  health: HeartPulse,
+  chart: LineChart
+};
 
 const statusConfig: Record<string, { bg: string; text: string; label: string; gradient: string; techBg: string; techText: string; techBorder: string }> = {
   operational: { bg: 'bg-green-500/90', text: 'text-white', label: 'Operational', gradient: 'from-green-500 to-emerald-400', techBg: 'bg-green-500/10', techText: 'text-green-600 dark:text-green-400', techBorder: 'border-green-500/30' },
@@ -12,6 +34,7 @@ interface ProjectCardProps {
   title: string;
   description: string;
   imageSrc: string;
+  iconKey?: string;
   gradient?: string;
   categories: string[];
   technologies: string;
@@ -25,6 +48,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   description,
   imageSrc,
+  iconKey,
   gradient = "from-gray-500 to-gray-400",
   categories,
   technologies,
@@ -35,6 +59,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const statusStyle = status ? statusConfig[status] : null;
   const cardGradient = statusStyle ? statusStyle.gradient : gradient;
+  const Icon = iconKey ? projectIconMap[iconKey] : undefined;
 
   return (
     <motion.div
@@ -52,15 +77,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="absolute top-4 right-4 w-24 h-24 rounded-full bg-white/20 blur-xl group-hover:scale-150 transition-transform duration-700"></div>
           <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full bg-white/10 blur-lg group-hover:scale-125 transition-transform duration-500 delay-100"></div>
         </div>
-        <div className="relative z-10 w-20 h-20 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
-          <img
-            src={imageSrc}
-            alt={title}
-            className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
-            onError={(e) => {
-              e.currentTarget.style.display = 'none';
-            }}
-          />
+        <div className="relative z-10 w-20 h-20 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center ring-1 ring-white/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+          {Icon ? (
+            <Icon className="w-10 h-10 text-white drop-shadow-md group-hover:scale-110 transition-transform duration-300" strokeWidth={1.75} />
+          ) : (
+            <img
+              src={imageSrc}
+              alt={title}
+              className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
+              onError={(e) => {
+                e.currentTarget.style.display = 'none';
+              }}
+            />
+          )}
         </div>
         {/* Status & Category badges */}
         <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">

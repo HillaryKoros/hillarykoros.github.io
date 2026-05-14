@@ -14,6 +14,9 @@ export default defineConfig({
     },
   },
   root: path.resolve(__dirname, "client"),
+  server: {
+    host: true, // bind to 0.0.0.0 so you can preview from any device on the LAN
+  },
   build: {
     outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
