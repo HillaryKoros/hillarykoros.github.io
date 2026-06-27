@@ -1,53 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  /* LIGHT theme — soft warm grey canvas (gives the constellation backdrop somewhere to sink into) */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71% 4%;
+    --background: 30 14% 94%;
+    --foreground: 220 35% 12%;
     --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card-foreground: 220 35% 12%;
     --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
-    --primary: 220 70% 50%;
-    --primary-foreground: 210 20% 98%;
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 220 9% 46%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
-    --accent: 220 14% 96%;
-    --accent-foreground: 220 9% 46%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 220 70% 50%;
+    --popover-foreground: 220 35% 12%;
+    --primary: 215 80% 32%;
+    --primary-foreground: 210 25% 98%;
+    --secondary: 215 30% 94%;
+    --secondary-foreground: 220 25% 22%;
+    --muted: 215 30% 94%;
+    --muted-foreground: 215 16% 38%;
+    --accent: 215 30% 94%;
+    --accent-foreground: 220 25% 22%;
+    --destructive: 0 75% 50%;
+    --destructive-foreground: 210 25% 98%;
+    --border: 215 22% 86%;
+    --input: 215 22% 86%;
+    --ring: 215 80% 32%;
     --radius: 0.5rem;
+
+    /* — Meshack-borrowed motion + accent tokens — */
+    --ease:        cubic-bezier(.22, 1, .36, 1);
+    --accent-warm: 30 95% 42%;
+    --accent-cool: 198 86% 38%;
+    --border-a:    rgba(217, 119, 6, .35);
+    --shadow-soft: rgba(0, 0, 0, .12);
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 210 20% 98%;
-    --card: 224 71% 7%;
+    --background: 222 16% 12%;
+    --foreground: 210 25% 98%;        /* near-white for high contrast headings */
+    --card: 222 14% 17%;               /* visibly lighter than body for card lift */
     --card-foreground: 210 20% 98%;
     --popover: 224 71% 4%;
     --popover-foreground: 210 20% 98%;
     --primary: 210 100% 60%;
     --primary-foreground: 224 71% 4%;
-    --secondary: 215 28% 17%;
-    --secondary-foreground: 210 20% 98%;
-    --muted: 215 28% 17%;
-    --muted-foreground: 217 10% 64%;
-    --accent: 215 28% 17%;
-    --accent-foreground: 210 20% 98%;
+    --secondary: 215 22% 22%;
+    --secondary-foreground: 210 25% 98%;
+    --muted: 215 22% 22%;
+    --muted-foreground: 215 16% 86%;    /* very readable secondary copy */
+    --accent: 215 22% 22%;
+    --accent-foreground: 210 25% 98%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 210 20% 98%;
-    --border: 215 28% 17%;
-    --input: 215 28% 17%;
+    --border: 215 18% 30%;              /* card edges clearly visible against body */
+    --input: 215 28% 20%;
     --ring: 210 100% 60%;
+    --border-a:    rgba(245, 158, 11, .35);
+    --shadow-soft: rgba(0, 0, 0, .55);
   }
 }
 
@@ -60,39 +70,40 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-size: 18px;              /* bump every rem-based size up ~12% for comfortable reading */
   }
 
   body {
     @apply text-foreground;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    background-color: #f8fafc;
+    background-color: hsl(var(--background));    /* drives both light + dark from tokens */
     min-height: 100vh;
     position: relative;
+    line-height: 1.6;
   }
 
+  /* DARK base override — keeps the deep grey canvas the design was tuned against */
+  .dark body {
+    background-color: #16191f;
+  }
+
+  /* Soft ambient accent wash behind everything — muted on light theme to let the constellation breathe */
   body::before {
     content: '';
     position: fixed;
     inset: 0;
     z-index: -1;
+    pointer-events: none;
     background-image:
-      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.25) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.2) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.2) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(34, 197, 94, 0.15) 0px, transparent 50%);
-    animation: bgPulse 8s ease-in-out infinite;
+      radial-gradient(ellipse 45% 55% at 8% 30%, rgba(217,119,6,.025), transparent 52%),
+      radial-gradient(ellipse 40% 50% at 92% 65%, rgba(8,145,178,.02), transparent 50%);
   }
-
-  .dark body {
-    background-color: #0f172a;
-  }
-
   .dark body::before {
     background-image:
-      radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.35) 0px, transparent 50%),
-      radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.3) 0px, transparent 50%),
-      radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.25) 0px, transparent 50%),
-      radial-gradient(at 0% 100%, rgba(168, 85, 247, 0.2) 0px, transparent 50%);
+      radial-gradient(ellipse 45% 55% at 8% 30%, rgba(245,158,11,.06), transparent 52%),
+      radial-gradient(ellipse 40% 50% at 92% 65%, rgba(34,211,238,.06), transparent 50%),
+      radial-gradient(ellipse 30% 40% at 50% 10%, rgba(167,139,250,.05), transparent 48%),
+      radial-gradient(ellipse 38% 48% at 30% 85%, rgba(52,211,153,.05), transparent 52%);
   }
 
   @keyframes bgPulse {
@@ -147,6 +158,58 @@
 /* Utility classes */
 .text-gradient {
   @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400;
+}
+
+/* — Meshack-borrowed visual primitives — */
+
+/* Warm/cool gradient title accent (signature Meshack amber→cyan) */
+.text-gradient-warm {
+  @apply bg-clip-text text-transparent;
+  background-image: linear-gradient(90deg, hsl(var(--accent-warm)), hsl(var(--accent-cool)));
+}
+
+/* Subtle grain texture for the whole canvas */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.40 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.045;
+  mix-blend-mode: overlay;
+}
+
+/* Frosted-glass card primitive — borrow Meshack's backdrop-filter look */
+.glass-card {
+  @apply rounded-xl border border-border/70 bg-card/65 backdrop-blur-md backdrop-saturate-150;
+  transition: border-color .25s ease, background-color .25s ease, transform .3s var(--ease), box-shadow .25s;
+}
+.glass-card:hover {
+  @apply border-border bg-card/85 -translate-y-0.5 shadow-lg;
+}
+
+/* Monospace tag pill — code-style chips (matches Meshack's .skill-tags span) */
+.tag-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  @apply inline-flex items-center px-2 py-0.5 text-[0.7rem] font-medium tracking-tight
+         text-muted-foreground bg-secondary/50 border border-border/40 rounded-md
+         transition-all duration-200;
+}
+.glass-card:hover .tag-mono,
+.group:hover .tag-mono {
+  @apply text-foreground border-border/80 bg-secondary/80;
+}
+
+/* Sweep accent line — drops on top of a hovered card */
+.sweep-accent {
+  @apply absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0
+         bg-gradient-to-r from-amber-400 via-orange-400 to-cyan-400;
+  transition: transform .5s var(--ease);
+}
+.group:hover .sweep-accent,
+.glass-card:hover .sweep-accent {
+  transform: scaleX(1);
 }
 
 /* Floating icons animation */

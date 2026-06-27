@@ -1,33 +1,46 @@
+/**
+ * ProjectCard — total reface in Meshack's "Shipped Work" style.
+ * Numbered glass card with sweep accent, mono tag chips, hover lift.
+ */
+
 import React from 'react';
 import { motion } from 'framer-motion';
-import {
-  Waves,
-  Cloud,
-  Workflow,
-  Map,
-  BookOpen,
-  Repeat,
-  HeartPulse,
-  LineChart,
-  LucideIcon
-} from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 
-const projectIconMap: Record<string, LucideIcon> = {
-  waves: Waves,
-  cloud: Cloud,
-  workflow: Workflow,
-  map: Map,
-  book: BookOpen,
-  swap: Repeat,
-  health: HeartPulse,
-  chart: LineChart
-};
+type Status = 'operational' | 'ongoing' | 'completed' | 'planned';
 
-const statusConfig: Record<string, { bg: string; text: string; label: string; gradient: string; techBg: string; techText: string; techBorder: string }> = {
-  operational: { bg: 'bg-green-500/90', text: 'text-white', label: 'Operational', gradient: 'from-green-500 to-emerald-400', techBg: 'bg-green-500/10', techText: 'text-green-600 dark:text-green-400', techBorder: 'border-green-500/30' },
-  ongoing: { bg: 'bg-blue-500/90', text: 'text-white', label: 'Ongoing', gradient: 'from-blue-500 to-cyan-400', techBg: 'bg-blue-500/10', techText: 'text-blue-600 dark:text-blue-400', techBorder: 'border-blue-500/30' },
-  completed: { bg: 'bg-amber-500/90', text: 'text-white', label: 'Completed', gradient: 'from-amber-500 to-yellow-400', techBg: 'bg-amber-500/10', techText: 'text-amber-600 dark:text-amber-400', techBorder: 'border-amber-500/30' },
-  planned: { bg: 'bg-red-500/90', text: 'text-white', label: 'Planned', gradient: 'from-red-500 to-orange-400', techBg: 'bg-red-500/10', techText: 'text-red-600 dark:text-red-400', techBorder: 'border-red-500/30' }
+const STATUS: Record<
+  Status,
+  { label: string; dot: string; chip: string; sweep: string; glow: string }
+> = {
+  operational: {
+    label: 'Operational',
+    dot: 'bg-emerald-500',
+    chip: 'border-emerald-500/30 text-emerald-700 dark:text-emerald-400 bg-emerald-500/10',
+    sweep: 'from-emerald-400 via-green-400 to-cyan-400',
+    glow: 'shadow-emerald-500/15',
+  },
+  ongoing: {
+    label: 'Ongoing',
+    dot: 'bg-amber-500',
+    chip: 'border-amber-500/30 text-amber-700 dark:text-amber-400 bg-amber-500/10',
+    sweep: 'from-amber-400 via-orange-400 to-cyan-400',
+    glow: 'shadow-amber-500/15',
+  },
+  completed: {
+    label: 'Completed',
+    dot: 'bg-cyan-500',
+    chip: 'border-cyan-500/30 text-cyan-700 dark:text-cyan-400 bg-cyan-500/10',
+    sweep: 'from-cyan-400 via-sky-400 to-indigo-500',
+    glow: 'shadow-cyan-500/15',
+  },
+  planned: {
+    label: 'Planned',
+    dot: 'bg-violet-500',
+    chip: 'border-violet-500/30 text-violet-700 dark:text-violet-400 bg-violet-500/10',
+    sweep: 'from-violet-400 via-fuchsia-400 to-pink-500',
+    glow: 'shadow-violet-500/15',
+  },
 };
 
 interface ProjectCardProps {
@@ -40,149 +53,157 @@ interface ProjectCardProps {
   technologies: string;
   projectLink?: string;
   codeLink?: string;
-  status?: 'operational' | 'ongoing' | 'completed' | 'planned';
+  status?: Status;
   onViewDetails?: () => void;
+  index?: number;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
   description,
-  imageSrc,
-  iconKey,
-  gradient = "from-gray-500 to-gray-400",
   categories,
   technologies,
   projectLink,
   codeLink,
   status,
-  onViewDetails
+  onViewDetails,
+  index = 0,
 }) => {
-  const statusStyle = status ? statusConfig[status] : null;
-  const cardGradient = statusStyle ? statusStyle.gradient : gradient;
-  const Icon = iconKey ? projectIconMap[iconKey] : undefined;
+  const s = status ? STATUS[status] : STATUS.operational;
+  const primaryLabel = categories[0] ?? s.label;
+  const linkHost = projectLink ? new URL(projectLink, 'http://x').host.replace(/^www\./, '') : null;
 
   return (
-    <motion.div
-      className="group bg-card rounded-xl border-2 border-border/50 overflow-hidden flex flex-col h-full hover:shadow-2xl transition-all duration-500 cursor-pointer"
-      whileHover={{ y: -8, scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+    <motion.article
       onClick={onViewDetails}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -7 }}
+      className={`
+        group relative overflow-hidden cursor-pointer flex flex-col h-full
+        rounded-2xl border border-border/60
+        bg-card/65 supports-[backdrop-filter]:bg-card/45 backdrop-blur-md backdrop-saturate-150
+        p-7 sm:p-8
+        transition-[border-color,box-shadow,background-color] duration-300
+        hover:border-border hover:bg-card/85 hover:shadow-2xl ${s.glow}
+      `}
     >
-      {/* Gradient Header with Icon */}
-      <div className={`relative h-36 bg-gradient-to-br ${cardGradient} flex items-center justify-center overflow-hidden`}>
-        <div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-all duration-500"></div>
-        {/* Animated background shapes */}
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-4 right-4 w-24 h-24 rounded-full bg-white/20 blur-xl group-hover:scale-150 transition-transform duration-700"></div>
-          <div className="absolute bottom-4 left-4 w-16 h-16 rounded-full bg-white/10 blur-lg group-hover:scale-125 transition-transform duration-500 delay-100"></div>
-        </div>
-        <div className="relative z-10 w-20 h-20 bg-white/15 backdrop-blur-sm rounded-2xl flex items-center justify-center ring-1 ring-white/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
-          {Icon ? (
-            <Icon className="w-10 h-10 text-white drop-shadow-md group-hover:scale-110 transition-transform duration-300" strokeWidth={1.75} />
-          ) : (
-            <img
-              src={imageSrc}
-              alt={title}
-              className="w-12 h-12 object-contain group-hover:scale-110 transition-transform duration-300"
-              onError={(e) => {
-                e.currentTarget.style.display = 'none';
-              }}
-            />
-          )}
-        </div>
-        {/* Status & Category badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5">
-          {statusStyle && (
-            <span className={`px-2.5 py-1 text-xs font-bold ${statusStyle.bg} ${statusStyle.text} rounded-lg shadow-sm`}>
-              {statusStyle.label}
-            </span>
-          )}
-          {categories.map((category, index) => (
-            <span
-              key={index}
-              className="px-2.5 py-1 text-xs font-semibold bg-white/95 text-gray-800 rounded-lg shadow-sm"
-            >
-              {category}
-            </span>
-          ))}
-        </div>
-        {/* View Details indicator */}
-        <div className="absolute bottom-3 right-3 transform group-hover:translate-x-1 transition-transform duration-300">
-          <span className="px-3 py-1.5 text-xs font-semibold bg-white/95 text-gray-700 rounded-lg shadow-md flex items-center gap-1.5 group-hover:shadow-lg transition-shadow duration-300">
-            View Details
-            <svg className="w-3.5 h-3.5 transform group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
+      {/* sweep accent line top */}
+      <div
+        aria-hidden
+        className={`
+          absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0
+          bg-gradient-to-r ${s.sweep}
+          transition-transform duration-500 ease-out
+          group-hover:scale-x-100
+        `}
+      />
+
+      {/* Big faded project number */}
+      <div
+        aria-hidden
+        className="
+          select-none pointer-events-none mb-4
+          text-5xl sm:text-6xl font-black tracking-[-0.06em] leading-none tabular-nums
+          text-foreground/10
+          transition-colors duration-500
+          group-hover:text-amber-500/30
+        "
+        style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </div>
+
+      {/* Status chip + label */}
+      <div className="flex items-center gap-2 mb-2">
+        <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border text-[11px] font-mono font-bold uppercase tracking-[0.12em] ${s.chip}`}>
+          <span className="relative flex h-1.5 w-1.5">
+            <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${s.dot} opacity-75`} />
+            <span className={`relative inline-flex rounded-full h-1.5 w-1.5 ${s.dot}`} />
           </span>
-        </div>
+          {s.label}
+        </span>
       </div>
 
-      {/* Content */}
-      <div className="p-4 flex-1 flex flex-col">
-        <h3 className="text-base font-bold text-foreground mb-1.5 line-clamp-1">
-          {title}
-        </h3>
-
-        <p className="text-sm text-muted-foreground mb-3 flex-1 line-clamp-3 leading-relaxed">
-          {description}
-        </p>
-
-        {/* Technologies */}
-        <div className="flex flex-wrap gap-1.5 mb-3">
-          {technologies.split(', ').slice(0, 4).map((tech, idx) => (
-            <span
-              key={idx}
-              className={`px-2 py-0.5 text-xs font-medium rounded-md border transition-all duration-300 hover:scale-105 ${
-                statusStyle
-                  ? `${statusStyle.techBg} ${statusStyle.techText} ${statusStyle.techBorder}`
-                  : 'bg-primary/10 text-primary border-primary/30'
-              }`}
-            >
-              {tech}
-            </span>
-          ))}
-          {technologies.split(', ').length > 4 && (
-            <span className="px-2 py-0.5 text-xs font-medium text-muted-foreground">
-              +{technologies.split(', ').length - 4}
-            </span>
-          )}
-        </div>
-
-        {/* Links */}
-        <div className="flex items-center gap-3 pt-2 border-t border-border">
-          {projectLink && (
-            <a
-              href={projectLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-0.5"
-            >
-              <svg className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-              <span>Live Demo</span>
-            </a>
-          )}
-
-          {codeLink && (
-            <a
-              href={codeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-primary transition-all duration-300 hover:translate-x-0.5"
-            >
-              <svg className="w-4 h-4 transition-transform duration-300 hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-              <span>Code</span>
-            </a>
-          )}
-        </div>
+      {/* Category label */}
+      <div
+        className="text-[11px] font-mono font-semibold uppercase tracking-[0.14em] text-cyan-600 dark:text-cyan-400 mb-2"
+      >
+        {primaryLabel}
       </div>
-    </motion.div>
+
+      {/* Project name */}
+      <h3 className="text-xl sm:text-2xl font-bold text-foreground mb-3 leading-tight tracking-tight">
+        {title}
+      </h3>
+
+      {/* Description */}
+      <p className="text-sm text-muted-foreground leading-relaxed mb-5 flex-1">
+        {description}
+      </p>
+
+      {/* Tech tag chips */}
+      <div className="flex flex-wrap gap-1.5 mb-5">
+        {technologies.split(', ').slice(0, 5).map((tech, i) => (
+          <span
+            key={i}
+            className="
+              inline-flex items-center px-2 py-0.5
+              text-[11.5px] font-mono font-medium
+              text-muted-foreground bg-secondary/40
+              border border-border/40 rounded-md
+              transition-colors duration-200
+              group-hover:text-foreground group-hover:bg-secondary/70
+            "
+          >
+            {tech}
+          </span>
+        ))}
+        {technologies.split(', ').length > 5 && (
+          <span className="text-[11.5px] font-mono text-muted-foreground self-center">
+            +{technologies.split(', ').length - 5} more
+          </span>
+        )}
+      </div>
+
+      {/* Link footer */}
+      {linkHost && projectLink && (
+        <a
+          href={projectLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="
+            inline-flex items-center gap-1.5 mt-auto
+            text-[13px] font-mono font-semibold text-amber-600 dark:text-amber-400
+            transition-[gap,color] duration-300
+            group-hover:gap-2.5
+          "
+        >
+          {linkHost}
+          <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.4} />
+        </a>
+      )}
+      {!linkHost && codeLink && (
+        <a
+          href={codeLink}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="
+            inline-flex items-center gap-1.5 mt-auto
+            text-[13px] font-mono font-semibold text-amber-600 dark:text-amber-400
+            transition-[gap,color] duration-300
+            group-hover:gap-2.5
+          "
+        >
+          Source
+          <ExternalLink className="w-3.5 h-3.5" strokeWidth={2.4} />
+        </a>
+      )}
+    </motion.article>
   );
 };
 

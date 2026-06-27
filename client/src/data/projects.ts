@@ -45,7 +45,7 @@ export const projects: Project[] = [
     categories: ["gis", "data", "web"],
     displayCategories: ["ICPAC", "Early Warning", "Full Stack"],
     technologies: "Python, FastAPI, Next.js, PostGIS, GDAL, NetCDF/GRIB, Xarray, Docker, GCP, cloud-optimised geospatial formats",
-    projectLink: "https://www.icpac.net/",
+    projectLink: "https://floodwatch.icpac.net/",
     codeLink: "https://github.com/icpac-igad",
     organization: "icpac",
     status: "operational",

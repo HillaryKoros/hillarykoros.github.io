@@ -1,18 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useSyncExternalStore } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import Sidebar from "./components/Sidebar";
 import Navigation from "./components/Navigation";
-import AnimatedBackground from "./components/AnimatedBackground";
+import ParticleNetwork from "./components/ParticleNetwork";
+import PortfolioFooter from "./components/PortfolioFooter";
 import AboutPage from "./pages/AboutPage";
 import ProjectsPage from "./pages/ProjectsPage";
 import ProjectDetailPage from "./pages/ProjectDetailPage";
 import ContactPage from "./pages/ContactPage";
 import { motion } from "framer-motion";
 
+// Subscribe to the global `theme-change` event Navigation fires, so the
+// particle backdrop can recolour itself live when the user toggles.
+const subscribeTheme = (cb: () => void) => {
+  window.addEventListener('theme-change', cb);
+  return () => window.removeEventListener('theme-change', cb);
+};
+const getTheme = () => (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+
 function App() {
   const [activePage, setActivePage] = useState("about");
   const [selectedProjectId, setSelectedProjectId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const theme = useSyncExternalStore(subscribeTheme, getTheme, getTheme);
+  // Light theme: clean medium blue — matches the brand navy and pops on the warm-grey canvas
+  const particleColor = theme === 'dark' ? 'rgb(220, 130, 15)' : 'rgb(37, 99, 180)';
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -76,14 +88,24 @@ function App() {
 
   return (
     <div className="min-h-screen relative">
-      <AnimatedBackground />
+      {/* Page-wide constellation backdrop — colour swaps with theme */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <ParticleNetwork
+          key={theme}
+          density={65}
+          linkDistance={140}
+          color={particleColor}
+          className="absolute inset-0 w-full h-full opacity-100"
+        />
+      </div>
+
       <div className="relative z-10 w-full px-4 sm:px-6 lg:px-10 xl:px-20 py-6 lg:py-10">
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-10">
           {/* Sidebar */}
           <Sidebar />
 
-          {/* Main Content */}
-          <main className="flex-1 min-w-0">
+          {/* Main Content — fills available width; column so footer pins to bottom */}
+          <main className="flex-1 min-w-0 flex flex-col min-h-[calc(100vh-5rem)]">
             <Navigation activePage={activePage} onNavigate={handleNavigation} />
 
             <motion.div
@@ -91,20 +113,12 @@ function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4 }}
+              className="flex-1"
             >
               {renderPage()}
             </motion.div>
 
-            <footer className="mt-16 pt-8 border-t border-border">
-              <div className="text-center space-y-3">
-                <p className="text-sm text-muted-foreground">
-                  This site is under constant maintenance and may sometimes become unresponsive.
-                </p>
-                <p className="text-base text-muted-foreground">
-                  © {new Date().getFullYear()} Hillary Koros. All rights reserved.
-                </p>
-              </div>
-            </footer>
+            <PortfolioFooter />
           </main>
         </div>
       </div>
