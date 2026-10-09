@@ -40,7 +40,7 @@ export default function ContactPage() {
     <div className="container py-16 lg:py-20">
       <header>
         <p className="label">Contact</p>
-        <h1 className="text-display mt-5 max-w-[16ch]">Let's build something.</h1>
+        <h1 className="text-display mt-5 max-w-[16ch]">Get in touch.</h1>
         <p className="text-lede mt-6 max-w-measure text-muted-foreground">{site.availableFor}</p>
         {site.available && <AvailabilityDot label="Replies within 24 hours · Mon–Fri" className="mt-6" />}
       </header>
@@ -105,26 +105,6 @@ export default function ContactPage() {
           </Section>
         </div>
 
-        <Section
-          label="Support"
-          title="Support the open work"
-          lede="If the open-source tools, notebooks or talks have helped you, a small token goes straight into keeping them maintained."
-        >
-          <ul className="flex flex-wrap gap-3">
-            {site.support.map((s) => (
-              <li key={s.id}>
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-md border border-border-strong bg-surface px-4 py-2.5 text-sm font-semibold transition-colors hover:bg-surface-sunken"
-                >
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </Section>
       </div>
     </div>
   );

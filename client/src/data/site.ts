@@ -77,6 +77,38 @@ export const site = {
     { id: 'sponsors', label: 'GitHub Sponsors', url: 'https://github.com/sponsors/HillaryKoros' },
   ],
 
+  /*
+   * Institutions the work has been delivered with or for, as distinct from
+   * employers (those are derived from experience.ts). Every one of these is
+   * backed by a project or a talk in the data.
+   */
+  collaborators: [
+    'CIMA Research Foundation',
+    'Development Seed',
+    'African Union Commission',
+    'IGAD member states',
+    'KEMRI–Wellcome Trust',
+  ],
+
+  /** Professional statement. Prose, kept out of the components. */
+  profile: [
+    'I build and operate the systems that turn climate and Earth observation data into ' +
+      'decisions that have to be made on a schedule — flood warnings, seasonal outlooks, ' +
+      'anticipatory action.',
+    'At ICPAC I lead engineering on the East Africa Flood Watch System, the regional flood ' +
+      'early-warning platform serving the eleven IGAD member states. My initial mandate was the ' +
+      'operational transfer of FloodPROOFS East Africa from CIMA Research Foundation, which the ' +
+      'Flood Watch now builds on; the work has since extended across ICPAC\'s wider early-warning ' +
+      'portfolio and into AMHEWAS reporting to the African Union Commission.',
+    'The engineering underneath is cloud-native. With Development Seed I co-develop ' +
+      'grib-index-kerchunk, which emits Zarr v3 reference layers over global NWP archives so ' +
+      'ECMWF IFS and NOAA GEFS can be read lazily from object storage rather than downloaded ' +
+      'in full. Before ICPAC I worked on malaria disease mapping across Sub-Saharan Africa and ' +
+      'MENA at KEMRI–Wellcome Trust, machine learning for spatial analysis at Geospatial ' +
+      'Research International, and land administration for the County Government of Bomet, ' +
+      'whose registry now holds more than fifty thousand digitised parcels.',
+  ],
+
   languages: [
     { code: 'EN',  name: 'English',   level: 'Professional working proficiency' },
     { code: 'SW',  name: 'Kiswahili', level: 'Native' },

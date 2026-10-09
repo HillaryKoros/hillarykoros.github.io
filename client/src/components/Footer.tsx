@@ -72,9 +72,14 @@ export default function Footer() {
           <p className="font-mono text-[0.8rem] text-faint-foreground">
             © {new Date().getFullYear()} {site.name}
           </p>
-          <p className="font-mono text-[0.8rem] text-faint-foreground">
-            Built with React, Tailwind and Vite · Deployed on GitHub Pages
-          </p>
+          <a
+            href={site.support[1].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-[0.8rem] text-faint-foreground transition-colors hover:text-muted-foreground"
+          >
+            Support the open-source work
+          </a>
         </div>
       </div>
     </footer>

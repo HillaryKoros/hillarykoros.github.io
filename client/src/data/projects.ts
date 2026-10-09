@@ -380,44 +380,5 @@ export const projects: Project[] = [
     ],
     duration: "July 2023 – June 2024",
     role: "Assistant Research Officer, GIS"
-  },
-
-  // ─── PLANNED ─────────────────────────────────────────────────────────────
-  {
-    id: "predictive-modeling",
-    title: "Predictive Modeling & Analytics",
-    description: "Predictive analytics toolkit spanning geospatial modeling, statistical inference, and machine learning — GLMs, spatial regression, ensemble methods, and uncertainty quantification for environmental decision-making.",
-    imageSrc: "/assets/gdal.png",
-    iconKey: "chart",
-    gradient: "from-indigo-500 to-blue-400",
-    categories: ["data"],
-    displayCategories: ["Data Science", "Predictive Analytics"],
-    technologies: "Python, R, scikit-learn, statsmodels, XGBoost, GeoPandas, Stan",
-    projectLink: "https://github.com/HillaryKoros",
-    codeLink: "https://github.com/HillaryKoros",
-    status: "planned",
-    problem: "Environmental decisions need predictive capability that spans statistical modeling, spatial analysis, and ML — yet integrating these cleanly over geospatial inputs is non-trivial.",
-    solution: "A toolkit covering GLMs/GAMs, spatial regression, ensemble ML (RF, XGBoost, LightGBM), Bayesian inference, and geospatial prediction with proper uncertainty quantification.",
-    results: [
-      "Unified interface across statistical and ML models",
-      "Integration of GLMs with spatial predictors",
-      "Prediction maps with uncertainty bounds",
-      "Reproducible analytical workflows"
-    ],
-    metrics: [
-      { label: "Model Types", value: "GLM, GAM, ML, Bayesian" },
-      { label: "Spatial Methods", value: "5+" },
-      { label: "Output Formats", value: "Maps, Reports, APIs" },
-      { label: "Validation Methods", value: "CV, Bootstrap" }
-    ],
-    features: [
-      "Generalized Linear Models (GLMs)",
-      "Spatial regression and kriging",
-      "Ensemble machine learning",
-      "Bayesian inference with Stan",
-      "Geospatial prediction mapping"
-    ],
-    duration: "2025",
-    role: "Data Scientist"
   }
 ];

@@ -8,7 +8,7 @@ export default function ContactBanner() {
     <section className="border-t border-border bg-surface-sunken">
       <div className="container flex flex-wrap items-center justify-between gap-8 py-16">
         <div>
-          <h2 className="text-title">Let's build something.</h2>
+          <h2 className="text-title">Work with me</h2>
           <p className="mt-3 max-w-measure text-lede text-muted-foreground">
             {site.availableFor}
           </p>
@@ -19,7 +19,7 @@ export default function ContactBanner() {
             Email me
           </a>
           <Link href="/contact" className={buttonStyles.secondary}>
-            All the ways to reach me
+            Contact
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
         </div>

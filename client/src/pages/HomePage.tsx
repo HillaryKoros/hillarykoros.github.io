@@ -5,6 +5,7 @@ import { site } from '../data/site';
 import { projects } from '../data/projects';
 import { techCount } from '../data/technologies';
 import Hero from '../components/Hero';
+import Profile from '../components/Profile';
 import Organisations from '../components/Organisations';
 import Section from '../components/Section';
 import NowBuilding from '../components/NowBuilding';
@@ -35,8 +36,8 @@ export default function HomePage() {
       <Organisations />
 
       <div className="container space-y-20 py-20 lg:space-y-24">
-        <Section label="Currently building" title="What's on the bench right now">
-          <NowBuilding />
+        <Section label="Profile" title="About">
+          <Profile />
         </Section>
 
         <Section
@@ -50,7 +51,7 @@ export default function HomePage() {
 
         <Section
           label="Selected work"
-          title="Platforms in operational use"
+          title="Selected work"
           lede="Systems used by governments, county authorities, research programmes and NGOs — operational platforms, open-source tooling and applied research."
           action={
             <Link
@@ -70,7 +71,15 @@ export default function HomePage() {
         </Section>
 
         <Section
-          label="What I do"
+          label="In progress"
+          title="Current work"
+          lede="Systems and tooling under active development."
+        >
+          <NowBuilding />
+        </Section>
+
+        <Section
+          label="Practice"
           title="Capabilities"
           lede="What I bring to operational climate-services work."
         >
@@ -78,15 +87,7 @@ export default function HomePage() {
         </Section>
 
         <Section
-          label="Stack"
-          title="Tools & technologies"
-          lede={`${techCount} tools spanning spatial computing, hydroinformatics, ML pipelines and cloud-native infrastructure — the operational stack behind regional early-warning platforms.`}
-        >
-          <StackGrid />
-        </Section>
-
-        <Section
-          label="Speaking"
+          label="Research"
           title="Talks & publications"
           lede="Conference presentations and selected writing on operational geospatial systems."
         >
@@ -99,6 +100,14 @@ export default function HomePage() {
           lede="Nine years across climate services, medical research, county government and the private sector."
         >
           <ExperienceList />
+        </Section>
+
+        <Section
+          label="Tooling"
+          title="Tools & technologies"
+          lede={`${techCount} tools spanning spatial computing, hydroinformatics, ML pipelines and cloud-native infrastructure — the operational stack behind regional early-warning platforms.`}
+        >
+          <StackGrid />
         </Section>
 
         <Section label="Languages" title="Languages I work in">

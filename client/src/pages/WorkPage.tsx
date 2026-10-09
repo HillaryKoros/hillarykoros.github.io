@@ -39,7 +39,7 @@ export default function WorkPage() {
     <div className="container py-16 lg:py-20">
       <header>
         <p className="label">Work</p>
-        <h1 className="text-display mt-5 max-w-[16ch]">Systems in the field.</h1>
+        <h1 className="text-display mt-5 max-w-[18ch]">Selected work</h1>
         <p className="text-lede mt-6 max-w-measure text-muted-foreground">
           Operational platforms, open-source tooling and applied research — built at ICPAC,
           the County Government of Bomet, KEMRI–Wellcome and in the open. From regional early
