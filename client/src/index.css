@@ -79,12 +79,21 @@
 
   html {
     /*
-     * Fluid root size. On a 1280px laptop this lands near 17px; on a 2800px
-     * display it reaches the 19px ceiling, so the page keeps its apparent
-     * size instead of shrinking as the viewport grows. The rem term keeps
-     * browser zoom and user font-size settings working.
+     * Fluid root size.
+     *
+     * CSS pixels are not a physical unit: a 4K panel at 100% packs them about
+     * 1.5x denser than a standard laptop display, so a fixed 16px root renders
+     * visibly smaller there. Everything on this site is sized in rem, so
+     * scaling the root scales the whole design together rather than leaving
+     * body copy and labels drifting apart.
+     *
+     *   390px  -> 17.0px      1440px -> 20.0px
+     *   1280px -> 19.5px      2814px -> 24.9px
+     *
+     * Expressed in rem rather than px so browser zoom and a user's own
+     * minimum-font-size preference still take effect.
      */
-    font-size: clamp(16.5px, 1rem + 0.14vw, 19px);
+    font-size: clamp(1.0625rem, 0.9375rem + 0.35vw, 1.625rem);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     scroll-behavior: smooth;
@@ -128,7 +137,7 @@
   .container {
     width: 100%;
     margin-inline: auto;
-    max-width: 1360px;
+    max-width: 70rem;
     padding-inline: 1.25rem;
   }
 
@@ -142,7 +151,7 @@
 
   /* Small caps mono label used for every section eyebrow and metadata row. */
   .label {
-    @apply font-mono text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-faint-foreground;
+    @apply font-mono text-[0.8rem] font-semibold uppercase tracking-[0.12em] text-faint-foreground;
   }
 
   /* The hairline rule that opens each section. */

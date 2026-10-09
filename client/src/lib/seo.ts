@@ -23,8 +23,12 @@ export interface SeoOptions {
 
 export function useSeo({ title, description, path }: SeoOptions): void {
   useEffect(() => {
+    // The name leads on every route, so a tab, a bookmark or a shared link
+    // always reads as the person first and the page second.
     const fullTitle =
-      path === '/' ? `${site.name} — ${site.role}, ${site.org.name}` : `${title} · ${site.name}`;
+      path === '/'
+        ? `${site.name} — ${site.role}, ${site.org.name}`
+        : `${site.name} — ${title}`;
     const canonical = `${site.url}${path === '/' ? '/' : path}`;
 
     document.title = fullTitle;

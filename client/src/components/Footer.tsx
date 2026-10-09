@@ -11,7 +11,7 @@ const SITEMAP = [
 
 export default function Footer() {
   return (
-    <footer className="mt-24 border-t border-border bg-surface-sunken">
+    <footer className="mt-16 border-t border-border bg-surface-sunken">
       <div className="container grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="sm:col-span-2 lg:col-span-2">
           <p className="font-semibold tracking-[-0.02em]">{site.name}</p>
