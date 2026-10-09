@@ -3,7 +3,9 @@ import { ArrowRight } from 'lucide-react';
 import { useSeo } from '../lib/seo';
 import { site } from '../data/site';
 import { projects } from '../data/projects';
+import { techCount } from '../data/technologies';
 import Hero from '../components/Hero';
+import Organisations from '../components/Organisations';
 import Section from '../components/Section';
 import NowBuilding from '../components/NowBuilding';
 import ImpactStats from '../components/ImpactStats';
@@ -30,20 +32,26 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <Organisations />
 
       <div className="container space-y-20 py-20 lg:space-y-24">
         <Section label="Currently building" title="What's on the bench right now">
           <NowBuilding />
         </Section>
 
-        <Section label="Impact" title="The numbers behind the work">
+        <Section
+          label="Impact"
+          title="Impact across organisations"
+          lede="Not all of it at ICPAC. The work spans a regional climate centre, a county
+                government, a medical research programme and open-source tooling."
+        >
           <ImpactStats />
         </Section>
 
         <Section
           label="Selected work"
           title="Platforms in operational use"
-          lede="Systems used by governments, NGOs and researchers across the Greater Horn of Africa."
+          lede="Systems used by governments, county authorities, research programmes and NGOs — operational platforms, open-source tooling and applied research."
           action={
             <Link
               href="/work"
@@ -72,7 +80,7 @@ export default function HomePage() {
         <Section
           label="Stack"
           title="Tools & technologies"
-          lede="The operational stack behind regional early-warning platforms."
+          lede={`${techCount} tools spanning spatial computing, hydroinformatics, ML pipelines and cloud-native infrastructure — the operational stack behind regional early-warning platforms.`}
         >
           <StackGrid />
         </Section>
@@ -85,7 +93,11 @@ export default function HomePage() {
           <TalkList />
         </Section>
 
-        <Section label="Career" title="Experience">
+        <Section
+          label="Career"
+          title="Experience"
+          lede="Nine years across climate services, medical research, county government and the private sector."
+        >
           <ExperienceList />
         </Section>
 

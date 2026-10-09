@@ -12,7 +12,7 @@ export interface Project {
   title: string;
   description: string;
   imageSrc: string;
-  iconKey?: 'waves' | 'cloud' | 'workflow' | 'map' | 'book' | 'swap' | 'health' | 'chart';
+  iconKey?: 'waves' | 'cloud' | 'workflow' | 'map' | 'book' | 'swap' | 'health' | 'chart' | 'activity';
   gradient?: string;
   categories: string[];
   displayCategories: string[];
@@ -115,6 +115,43 @@ export const projects: Project[] = [
   },
 
   // ─── ONGOING ─────────────────────────────────────────────────────────────
+  {
+    id: "crma-bayesian-risk",
+    title: "CRMA — Continuous Risk Monitoring and Assessment",
+    description: "Bayesian-network method for operational impact-based forecasting of flood and drought hazards in East Africa. Combines observations, forecasts and expert knowledge into probabilistic risk categories at sub-national administrative units, so national agencies get a continuously updated risk picture rather than a hazard value alone. Currently in development at ICPAC; presented at EGU General Assembly 2026 (HS4.5).",
+    imageSrc: "/assets/gdal.png",
+    iconKey: "activity",
+    gradient: "from-indigo-500 to-violet-400",
+    categories: ["data", "gis"],
+    displayCategories: ["ICPAC", "Impact-Based Forecasting", "Research"],
+    technologies: "Python, Bayesian networks, probabilistic risk modelling, NWP forecasts, Earth observation, sub-national admin units",
+    projectLink: "https://meetingorganizer.copernicus.org/EGU26/EGU26-18323.html",
+    organization: "icpac",
+    status: "ongoing",
+    problem: "Impact-based forecasting needs more than a hazard magnitude. Deciding whether to act requires combining what is observed now, what the models forecast, and what local experts know about exposure and vulnerability — and doing it continuously, at the administrative units where decisions are actually taken.",
+    solution: "A Bayesian-network approach to continuous hydrometeorological risk assessment across East Africa, fusing observations, forecasts and expert knowledge into probabilistic flood and drought risk categories at sub-national administrative units, updated on an operational cadence.",
+    results: [
+      "Probabilistic flood and drought risk categories at sub-national level",
+      "Continuous assessment rather than one-off hazard snapshots",
+      "Observations, forecasts and expert knowledge combined in one framework",
+      "Presented at EGU General Assembly 2026 (session HS4.5)"
+    ],
+    metrics: [
+      { label: "Method", value: "Bayesian network" },
+      { label: "Hazards", value: "Flood & drought" },
+      { label: "Granularity", value: "Sub-national admin" },
+      { label: "Region", value: "East Africa" }
+    ],
+    features: [
+      "Bayesian-network risk inference",
+      "Continuous, operationally-paced updates",
+      "Observation, forecast and expert-knowledge fusion",
+      "Sub-national administrative granularity",
+      "Feeds impact-based forecasting workflows"
+    ],
+    duration: "2025 - Present",
+    role: "Co-developer (ICPAC) · Co-author, EGU 2026"
+  },
   {
     id: "etl-utility-package",
     title: "ETL Utility Package",

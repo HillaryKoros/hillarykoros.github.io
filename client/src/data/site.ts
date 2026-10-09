@@ -26,14 +26,22 @@ export const site = {
     city: 'Nairobi',
     country: 'Kenya',
     countryCode: 'KE',
-    timezone: 'EAT (UTC+3)',
+    /** IANA zone — the clock is derived from this, never from a fixed offset. */
+    tz: 'Africa/Nairobi',
+    tzLabel: 'EAT',
+    lat: -1.2921,
+    lon: 36.8219,
+    openTo: ['Remote work', 'Travel across the Horn of Africa', 'Conference travel'],
+    /** Local hours Hillary is normally reachable, in `tz`. */
+    workingHours: [8, 18] as const,
   },
   url: 'https://hillarykoros.github.io',
   tagline: 'Engineering geospatial systems that turn climate data into decisions.',
   summary:
     'I work at the intersection of Earth observation, hydroinformatics, machine learning and ' +
-    'cloud-native architecture — building operational platforms for governments and partners ' +
-    'across the 11 countries of the Greater Horn of Africa.',
+    'cloud-native architecture — building operational platforms for governments, county ' +
+    'authorities and research programmes. Currently at ICPAC, serving the 11 countries of the ' +
+    'Greater Horn of Africa.',
   available: true,
   availableFor: 'Open to research positions, consulting, conference talks and collaborations.',
 

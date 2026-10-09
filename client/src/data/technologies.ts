@@ -95,3 +95,6 @@ export const techCategories: TechCategory[] = [
 ];
 
 export const technologies: Technology[] = techCategories.flatMap(cat => cat.items);
+
+/** Derived, so the copy can never claim a count the data does not back. */
+export const techCount = technologies.length;

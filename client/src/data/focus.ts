@@ -23,6 +23,12 @@ export const nowBuilding: NowItem[] = [
     state: 'active',
   },
   {
+    title: 'Continuous Risk Monitoring & Assessment (CRMA)',
+    detail: 'Bayesian-network impact-based forecasting for flood and drought risk.',
+    icon: 'activity',
+    state: 'active',
+  },
+  {
     title: 'Icechunk-backed ARCO stores',
     detail: 'Transactional Zarr for IMERG, CHIRPS and ERA5.',
     icon: 'cloud',
@@ -43,18 +49,53 @@ export const nowBuilding: NowItem[] = [
 ];
 
 export interface Stat {
-  value: number;
+  /** Numeric figure, or `display` when the measure is not a number. */
+  value?: number;
   suffix?: string;
+  display?: string;
   label: string;
+  /** Who the work was for — the point is that it is not all one employer. */
+  org: string;
   note: string;
 }
 
-/** Figures shown on the home page. Each one is backed by a project in `projects.ts`. */
+/**
+ * Impact, one entry per organisation.
+ *
+ * These were all ICPAC figures at first, which made nine years of work across
+ * five organisations read as a single posting. Each tile now comes from a
+ * different employer or body of work, and every figure is backed by a project
+ * in `projects.ts` or a role in `experience.ts`. The remaining ICPAC-specific
+ * numbers (basins, models in the ensemble) live on the Flood Watch project
+ * page, where they belong.
+ */
 export const impact: Stat[] = [
-  { value: 11,  label: 'IGAD member states',  note: 'served by the East Africa Flood Watch System' },
-  { value: 800, suffix: '+', label: 'River basins', note: 'level-6 basins under operational forecast' },
-  { value: 5,   suffix: '+', label: 'Platforms shipped', note: 'operational and ongoing, see Work' },
-  { value: 4,   label: 'Hydrological models', note: 'unified in the Nile multi-model ensemble' },
+  {
+    value: 11,
+    label: 'IGAD member states',
+    org: 'ICPAC',
+    note: 'under operational flood early warning via the East Africa Flood Watch System',
+  },
+  {
+    value: 50000,
+    suffix: '+',
+    label: 'Land parcels digitised',
+    org: 'County Government of Bomet',
+    note: 'a paper land registry moved into PostGIS, with search cut from days to minutes',
+  },
+  {
+    display: 'SSA + MENA',
+    label: 'Malaria mapping coverage',
+    org: 'KEMRI–Wellcome Trust',
+    note: 'parasite and vector surveys harmonised with DHS, UNICEF and IPUMS data',
+  },
+  {
+    value: 30,
+    suffix: '+',
+    label: 'Open notebooks & guides',
+    org: 'Open source',
+    note: 'training material on cloud-native geospatial workflows, free to use',
+  },
 ];
 
 export interface Capability {

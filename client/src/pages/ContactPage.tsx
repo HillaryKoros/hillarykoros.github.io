@@ -1,8 +1,9 @@
-import { Calendar, Github, Linkedin, Mail, MapPin, MessageCircle, Phone, Youtube, type LucideIcon } from 'lucide-react';
+import { Calendar, Github, Linkedin, Mail, MessageCircle, Phone, Youtube, type LucideIcon } from 'lucide-react';
 import { useSeo } from '../lib/seo';
 import { site, actions } from '../data/site';
 import Section from '../components/Section';
 import Reveal from '../components/Reveal';
+import LocationCard from '../components/LocationCard';
 import { AvailabilityDot } from '../components/primitives';
 
 interface Channel {
@@ -72,18 +73,7 @@ export default function ContactPage() {
 
         <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
           <Section label="Based in">
-            <div className="flex items-start gap-4">
-              <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" strokeWidth={1.75} aria-hidden />
-              <div>
-                <p className="text-[1.05rem] font-semibold">
-                  {site.location.city}, {site.location.country}
-                </p>
-                <p className="mt-1.5 max-w-measure text-sm leading-relaxed text-muted-foreground">
-                  {site.location.timezone} · Open to remote work and travel across the Horn of
-                  Africa and beyond.
-                </p>
-              </div>
-            </div>
+            <LocationCard />
           </Section>
 
           <Section label="Elsewhere">

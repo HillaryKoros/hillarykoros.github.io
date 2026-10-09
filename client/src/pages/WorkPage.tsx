@@ -41,8 +41,9 @@ export default function WorkPage() {
         <p className="label">Work</p>
         <h1 className="text-display mt-5 max-w-[16ch]">Systems in the field.</h1>
         <p className="text-lede mt-6 max-w-measure text-muted-foreground">
-          Platforms actively used by governments, NGOs and researchers across the Greater Horn of
-          Africa — from early warning systems to ARCO-Zarr stores and operational flood pipelines.
+          Operational platforms, open-source tooling and applied research — built at ICPAC,
+          the County Government of Bomet, KEMRI–Wellcome and in the open. From regional early
+          warning systems to a county land registry and ARCO-Zarr stores.
         </p>
       </header>
 
