@@ -28,6 +28,26 @@ function prerenderRoutes(): Plugin {
   const esc = (v: string) =>
     v.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
 
+  /**
+   * Replace once, and fail the build if the pattern did not match.
+   *
+   * The first version of this silently did nothing for three tags: the
+   * description, og:description and twitter:description are written across
+   * several lines in index.html, and the patterns assumed each tag sat on one
+   * line. The build passed, twelve files were written, and every one of them
+   * carried the home page's description. A substitution that quietly matches
+   * nothing is worse than one that throws.
+   */
+  const must = (html: string, pattern: RegExp, replacement: string, what: string) => {
+    // Test the pattern rather than comparing before/after: on the home route
+    // several of these replacements are legitimately no-ops, since the shell
+    // already carries the home page's own values.
+    if (!pattern.test(html)) {
+      throw new Error(`prerender: no match for ${what} — the shell markup changed shape`);
+    }
+    return html.replace(pattern, replacement);
+  };
+
   return {
     name: 'prerender-routes',
     apply: 'build',
@@ -39,15 +59,16 @@ function prerenderRoutes(): Plugin {
         const description = esc(route.description);
         const canonical = canonicalUrl(route.path);
 
-        const html = shell
-          .replace(/<title>[\s\S]*?<\/title>/, `<title>${title}</title>`)
-          .replace(/(<meta name="description" content=")[\s\S]*?(")/, `$1${description}$2`)
-          .replace(/(<link rel="canonical" href=")[^"]*(")/, `$1${canonical}$2`)
-          .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1${canonical}$2`)
-          .replace(/(<meta property="og:title" content=")[^"]*(")/, `$1${title}$2`)
-          .replace(/(<meta property="og:description" content=")[\s\S]*?(")/, `$1${description}$2`)
-          .replace(/(<meta name="twitter:title" content=")[^"]*(")/, `$1${title}$2`)
-          .replace(/(<meta name="twitter:description" content=")[\s\S]*?(")/, `$1${description}$2`);
+        // `\s+` between attributes so a tag broken across lines still matches.
+        let html = shell;
+        html = must(html, /<title>[\s\S]*?<\/title>/, `<title>${title}</title>`, 'title');
+        html = must(html, /(<meta\s+name="description"\s+content=")[\s\S]*?(")/, `$1${description}$2`, 'description');
+        html = must(html, /(<link\s+rel="canonical"\s+href=")[^"]*(")/, `$1${canonical}$2`, 'canonical');
+        html = must(html, /(<meta\s+property="og:url"\s+content=")[^"]*(")/, `$1${canonical}$2`, 'og:url');
+        html = must(html, /(<meta\s+property="og:title"\s+content=")[^"]*(")/, `$1${title}$2`, 'og:title');
+        html = must(html, /(<meta\s+property="og:description"\s+content=")[\s\S]*?(")/, `$1${description}$2`, 'og:description');
+        html = must(html, /(<meta\s+name="twitter:title"\s+content=")[^"]*(")/, `$1${title}$2`, 'twitter:title');
+        html = must(html, /(<meta\s+name="twitter:description"\s+content=")[\s\S]*?(")/, `$1${description}$2`, 'twitter:description');
 
         const dir = route.path === '/' ? outDir : path.join(outDir, route.path);
         mkdirSync(dir, { recursive: true });
