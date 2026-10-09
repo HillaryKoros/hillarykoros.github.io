@@ -160,6 +160,12 @@
   }
 }
 
+/* Typewriter caret in the hero. */
+@keyframes caret {
+  0%, 50%   { opacity: 1; }
+  50.01%, 100% { opacity: 0; }
+}
+
 /*
  * Motion. Content is never hidden behind an animation: reveals animate opacity
  * from 0 only when motion is allowed, and the reduced-motion branch paints the

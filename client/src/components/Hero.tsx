@@ -15,7 +15,8 @@ export default function Hero() {
 
           <h1 className="text-display mt-5 max-w-[17ch]">{site.tagline}</h1>
 
-          <p className="mt-5 text-[1.15rem] font-semibold tracking-[-0.015em]">
+          {/* min-h holds the line so the paragraph below never jumps. */}
+          <p className="mt-5 min-h-[1.6em] text-[1.15rem] font-semibold tracking-[-0.015em]">
             <RotatingRole />
           </p>
 

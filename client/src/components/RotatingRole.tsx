@@ -1,26 +1,60 @@
-import { useEffect, useState } from 'react';
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 import { site } from '../data/site';
 
-const INTERVAL_MS = 4000;
+/** Milliseconds per character, and how long a finished line is held. */
+const TYPE_MS = 55;
+const DELETE_MS = 28;
+const HOLD_MS = 1900;
+const BEFORE_NEXT_MS = 350;
 
 /**
- * Cycles through `site.roles` in the hero.
+ * Types each entry of `site.roles` out character by character, holds it, then
+ * deletes it and moves to the next.
  *
- * Two accessibility details: the rotation is aria-hidden and the canonical
- * `site.role` is exposed to assistive tech once, so a screen reader is not
- * interrupted every four seconds; and under prefers-reduced-motion the line
- * holds the canonical role instead of animating.
+ * This replaced a cross-fade, which worked but was too quiet to read as an
+ * effect at all. The caret is what makes it legible as typing rather than as
+ * text that happens to change.
+ *
+ * Accessibility: the whole animation is aria-hidden and the canonical
+ * `site.role` is exposed once in a visually hidden span, so a screen reader
+ * announces the role a single time instead of on every keystroke. Under
+ * prefers-reduced-motion nothing animates — the canonical role is shown
+ * outright.
  */
 export default function RotatingRole() {
   const reduced = useReducedMotion();
-  const [i, setI] = useState(0);
+  const [text, setText] = useState('');
+  const [roleIndex, setRoleIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+  const timer = useRef<number>();
 
   useEffect(() => {
-    if (reduced || site.roles.length < 2) return;
-    const id = window.setInterval(() => setI((n) => (n + 1) % site.roles.length), INTERVAL_MS);
-    return () => window.clearInterval(id);
-  }, [reduced]);
+    if (reduced) return;
+
+    const full = site.roles[roleIndex];
+
+    // Finished typing: hold, then start deleting.
+    if (!deleting && text === full) {
+      timer.current = window.setTimeout(() => setDeleting(true), HOLD_MS);
+      return () => window.clearTimeout(timer.current);
+    }
+
+    // Finished deleting: advance to the next role.
+    if (deleting && text === '') {
+      timer.current = window.setTimeout(() => {
+        setDeleting(false);
+        setRoleIndex((i) => (i + 1) % site.roles.length);
+      }, BEFORE_NEXT_MS);
+      return () => window.clearTimeout(timer.current);
+    }
+
+    timer.current = window.setTimeout(
+      () => setText(deleting ? full.slice(0, text.length - 1) : full.slice(0, text.length + 1)),
+      deleting ? DELETE_MS : TYPE_MS,
+    );
+    return () => window.clearTimeout(timer.current);
+  }, [text, deleting, roleIndex, reduced]);
 
   if (reduced) {
     return <span className="text-primary">{site.role}</span>;
@@ -29,20 +63,9 @@ export default function RotatingRole() {
   return (
     <>
       <span className="sr-only">{site.role}</span>
-      {/* Reserve the line height so the hero does not jolt on each swap. */}
-      <span aria-hidden className="relative block h-[1.5em] overflow-hidden">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.span
-            key={i}
-            className="absolute inset-x-0 top-0 text-primary"
-            initial={{ opacity: 0, y: '0.5em' }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: '-0.5em' }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-          >
-            {site.roles[i]}
-          </motion.span>
-        </AnimatePresence>
+      <span aria-hidden className="text-primary">
+        {text}
+        <span className="ml-0.5 inline-block w-[0.11em] translate-y-[0.1em] self-stretch bg-primary align-middle [animation:caret_1.05s_steps(1)_infinite] h-[1.05em]" />
       </span>
     </>
   );
