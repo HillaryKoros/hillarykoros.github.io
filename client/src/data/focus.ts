@@ -4,6 +4,8 @@
  * `capabilities` array). Keeping it here means the pages stay presentational.
  */
 
+import { hydroModelList } from './models';
+
 export type IconKey =
   | 'waves' | 'cloud' | 'brain' | 'satellite' | 'database' | 'settings' | 'activity' | 'globe';
 
@@ -42,7 +44,7 @@ export const nowBuilding: NowItem[] = [
   },
   {
     title: 'DevOps for hydrological models',
-    detail: 'Reproducible pipelines for WRF-Hydro, HYPE and GeoSFM.',
+    detail: `Reproducible pipelines for ${hydroModelList}.`,
     icon: 'settings',
     state: 'shipping',
   },
@@ -114,7 +116,7 @@ export const capabilities: Capability[] = [
   {
     title: 'Flood hydroinformatics',
     description:
-      'Multi-model hydrological forecasting and ensemble pipelines: FloodPROOFS, GeoSFM, MIKE Hydro, HYPE, GEOGloWS and Google Flood Hub.',
+      `Multi-model hydrological forecasting and ensemble pipelines across ${hydroModelList}.`,
     icon: 'activity',
   },
   {

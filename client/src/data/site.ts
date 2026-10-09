@@ -17,6 +17,21 @@ export const site = {
   role: 'Geospatial Developer & DevOps Engineer',
   engagement: 'Consultant',
 
+  /*
+   * The hero cycles through these. `role` above stays the canonical one — it
+   * is what page titles, the header and screen readers use, so the site still
+   * has a single answer to "what does he do" even though the hero rotates.
+   * Add, remove or reorder freely; the first entry is shown first.
+   */
+  roles: [
+    'Geospatial Developer & DevOps Engineer',
+    'DevOps Consultant',
+    'Flood Hydroinformatics',
+    'AI/ML for Hydroclimatic Forecasting',
+    'Earth Observation · Early Warning',
+    'Cloud-Native Geospatial',
+  ],
+
   org: {
     name: 'ICPAC',
     longName: 'IGAD Climate Prediction and Applications Centre',

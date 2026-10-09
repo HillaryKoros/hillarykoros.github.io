@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { ArrowRight, FileText, MapPin } from 'lucide-react';
 import { site } from '../data/site';
+import RotatingRole from './RotatingRole';
 import { buttonStyles, AvailabilityDot } from './primitives';
 
 export default function Hero() {
@@ -14,7 +15,11 @@ export default function Hero() {
 
           <h1 className="text-display mt-5 max-w-[17ch]">{site.tagline}</h1>
 
-          <p className="text-lede mt-6 max-w-measure text-muted-foreground">{site.summary}</p>
+          <p className="mt-5 text-[1.15rem] font-semibold tracking-[-0.015em]">
+            <RotatingRole />
+          </p>
+
+          <p className="text-lede mt-5 max-w-measure text-muted-foreground">{site.summary}</p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link href="/work" className={buttonStyles.primary}>
