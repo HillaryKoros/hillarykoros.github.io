@@ -7,7 +7,7 @@
  */
 
 import { useEffect } from 'react';
-import { site } from '../data/site';
+import { canonicalUrl, documentTitle } from '../data/routes';
 
 function setMeta(selector: string, attr: 'content' | 'href', value: string) {
   const el = document.head.querySelector<HTMLMetaElement | HTMLLinkElement>(selector);
@@ -23,13 +23,10 @@ export interface SeoOptions {
 
 export function useSeo({ title, description, path }: SeoOptions): void {
   useEffect(() => {
-    // The name leads on every route, so a tab, a bookmark or a shared link
-    // always reads as the person first and the page second.
-    const fullTitle =
-      path === '/'
-        ? `${site.name} — ${site.role}, ${site.org.name}`
-        : `${site.name} — ${title}`;
-    const canonical = `${site.url}${path === '/' ? '/' : path}`;
+    // Same helpers the build-time pre-render uses, so the markup a crawler
+    // receives and the markup this sets can never be out of step.
+    const fullTitle = documentTitle({ path, title });
+    const canonical = canonicalUrl(path);
 
     document.title = fullTitle;
     setMeta('meta[name="description"]', 'content', description);
