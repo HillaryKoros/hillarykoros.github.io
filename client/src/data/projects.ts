@@ -72,7 +72,7 @@ export const projects: Project[] = [
       "Shared backbone with Hazards Watch, Drought Watch, Agriculture Watch"
     ],
     duration: "March 2025 - Present",
-    role: "Lead Developer (GIS Researcher & Engineer)"
+    role: "Lead Developer"
   },
   {
     id: "grib-index-kerchunk",
@@ -307,7 +307,7 @@ export const projects: Project[] = [
       "Integration design into the regional Flood Watch System"
     ],
     duration: "Initial ICPAC mandate, 2025",
-    role: "GIS Researcher & Engineer, ICPAC"
+    role: "Geospatial Developer & DevOps Engineer, ICPAC"
   },
   {
     id: "kemri-malaria-spatial",

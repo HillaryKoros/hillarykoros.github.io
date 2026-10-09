@@ -14,7 +14,7 @@ export interface ExperienceRole {
 export const experience: ExperienceRole[] = [
   {
     id: "icpac",
-    title: "GIS Researcher & Engineer (Consultant)",
+    title: "Geospatial Developer & DevOps Engineer (Consultant)",
     organization: "IGAD Climate Prediction and Applications Centre (ICPAC)",
     location: "Nairobi, Kenya",
     start: "2025",

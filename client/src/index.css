@@ -1,63 +1,74 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+/*
+ * Design tokens.
+ *
+ * The palette is deliberately narrow: a paper/ink base, one teal accent for
+ * anything interactive, and four status hues reserved exclusively for project
+ * status. Decorative colour is not used anywhere else — the content carries the
+ * page. Every token is defined for both themes so no component needs a
+ * `dark:` override for colour.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* LIGHT theme — soft warm grey canvas (gives the constellation backdrop somewhere to sink into) */
   :root {
-    --background: 30 14% 94%;
-    --foreground: 220 35% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 220 35% 12%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 35% 12%;
-    --primary: 215 80% 32%;
-    --primary-foreground: 210 25% 98%;
-    --secondary: 215 30% 94%;
-    --secondary-foreground: 220 25% 22%;
-    --muted: 215 30% 94%;
-    --muted-foreground: 215 16% 38%;
-    --accent: 215 30% 94%;
-    --accent-foreground: 220 25% 22%;
-    --destructive: 0 75% 50%;
-    --destructive-foreground: 210 25% 98%;
-    --border: 215 22% 86%;
-    --input: 215 22% 86%;
-    --ring: 215 80% 32%;
-    --radius: 0.5rem;
+    /* Surfaces — warm paper rather than pure white, so cards can be white */
+    --background:        40 24% 97%;
+    --surface:            0  0% 100%;
+    --surface-sunken:    40 16% 94%;
 
-    /* — Meshack-borrowed motion + accent tokens — */
-    --ease:        cubic-bezier(.22, 1, .36, 1);
-    --accent-warm: 30 95% 42%;
-    --accent-cool: 198 86% 38%;
-    --border-a:    rgba(217, 119, 6, .35);
-    --shadow-soft: rgba(0, 0, 0, .12);
+    /* Ink */
+    --foreground:       220 22% 13%;
+    --muted-foreground: 220 10% 42%;
+    --faint-foreground: 220  9% 46%;
+
+    /* Lines */
+    --border:           34 14% 87%;
+    --border-strong:    34 12% 78%;
+
+    /* One accent: deep teal. Interactive elements only. */
+    --primary:          186 78% 27%;
+    --primary-hover:    186 78% 22%;
+    --primary-foreground: 0 0% 100%;
+    --primary-soft:     186 60% 94%;
+
+    /* Status — reserved for project status, nothing else */
+    --status-operational: 158 72% 29%;
+    --status-ongoing:      32 85% 35%;
+    --status-completed:   214 55% 44%;
+    --status-planned:     265 45% 50%;
+
+    --ring:             186 78% 32%;
+    --radius:           0.625rem;
   }
 
   .dark {
-    --background: 222 16% 12%;
-    --foreground: 210 25% 98%;        /* near-white for high contrast headings */
-    --card: 222 14% 17%;               /* visibly lighter than body for card lift */
-    --card-foreground: 210 20% 98%;
-    --popover: 224 71% 4%;
-    --popover-foreground: 210 20% 98%;
-    --primary: 210 100% 60%;
-    --primary-foreground: 224 71% 4%;
-    --secondary: 215 22% 22%;
-    --secondary-foreground: 210 25% 98%;
-    --muted: 215 22% 22%;
-    --muted-foreground: 215 16% 86%;    /* very readable secondary copy */
-    --accent: 215 22% 22%;
-    --accent-foreground: 210 25% 98%;
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 210 20% 98%;
-    --border: 215 18% 30%;              /* card edges clearly visible against body */
-    --input: 215 28% 20%;
-    --ring: 210 100% 60%;
-    --border-a:    rgba(245, 158, 11, .35);
-    --shadow-soft: rgba(0, 0, 0, .55);
+    --background:       215 32%  8%;
+    --surface:          215 28% 11%;
+    --surface-sunken:   215 30%  6%;
+
+    --foreground:       210 22% 94%;
+    --muted-foreground: 215 14% 64%;
+    --faint-foreground: 215 12% 53%;
+
+    --border:           215 20% 20%;
+    --border-strong:    215 18% 28%;
+
+    --primary:          175 65% 52%;
+    --primary-hover:    175 65% 62%;
+    --primary-foreground: 215 32% 8%;
+    --primary-soft:     186 50% 16%;
+
+    --status-operational: 158 60% 52%;
+    --status-ongoing:      38 85% 58%;
+    --status-completed:   211 70% 66%;
+    --status-planned:     265 70% 72%;
+
+    --ring:             175 65% 52%;
   }
 }
 
@@ -67,171 +78,89 @@
   }
 
   html {
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    /*
+     * Fluid root size. On a 1280px laptop this lands near 17px; on a 2800px
+     * display it reaches the 19px ceiling, so the page keeps its apparent
+     * size instead of shrinking as the viewport grows. The rem term keeps
+     * browser zoom and user font-size settings working.
+     */
+    font-size: clamp(16.5px, 1rem + 0.14vw, 19px);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    font-size: 18px;              /* bump every rem-based size up ~12% for comfortable reading */
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply text-foreground;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
-    background-color: hsl(var(--background));    /* drives both light + dark from tokens */
-    min-height: 100vh;
-    position: relative;
-    line-height: 1.6;
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
-  /* DARK base override — keeps the deep grey canvas the design was tuned against */
-  .dark body {
-    background-color: #16191f;
+  /* Headings are tight and dark; the type does the work the old gradients did. */
+  h1, h2, h3, h4 {
+    @apply font-semibold tracking-[-0.02em] text-balance;
   }
 
-  /* Soft ambient accent wash behind everything — muted on light theme to let the constellation breathe */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image:
-      radial-gradient(ellipse 45% 55% at 8% 30%, rgba(217,119,6,.025), transparent 52%),
-      radial-gradient(ellipse 40% 50% at 92% 65%, rgba(8,145,178,.02), transparent 50%);
-  }
-  .dark body::before {
-    background-image:
-      radial-gradient(ellipse 45% 55% at 8% 30%, rgba(245,158,11,.06), transparent 52%),
-      radial-gradient(ellipse 40% 50% at 92% 65%, rgba(34,211,238,.06), transparent 50%),
-      radial-gradient(ellipse 30% 40% at 50% 10%, rgba(167,139,250,.05), transparent 48%),
-      radial-gradient(ellipse 38% 48% at 30% 85%, rgba(52,211,153,.05), transparent 52%);
+  /* A single, consistent focus ring across the whole site. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background rounded-sm;
   }
 
-  @keyframes bgPulse {
-    0%, 100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-    50% {
-      opacity: 0.7;
-      transform: scale(1.05);
-    }
+  ::selection {
+    background-color: hsl(var(--primary) / 0.22);
   }
-}
 
-/* Smooth scroll animation for tech carousel */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: hsl(var(--surface-sunken)); }
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--border-strong));
+    border: 2px solid hsl(var(--surface-sunken));
+    border-radius: 999px;
   }
-  100% {
-    transform: translateX(-50%);
+  ::-webkit-scrollbar-thumb:hover { background: hsl(var(--faint-foreground)); }
+}
+
+@layer components {
+  /*
+   * Hand-rolled rather than Tailwind's `container` plugin: that one only
+   * applies a max-width at the breakpoints you list, so it ran full-bleed
+   * between lg and 2xl and then snapped. This caps at every width.
+   */
+  .container {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 1360px;
+    padding-inline: 1.25rem;
   }
-}
 
-.animate-scroll {
-  animation: scroll 25s linear infinite;
-}
-
-.animate-scroll:hover,
-.pause-animation {
-  animation-play-state: paused;
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-
-::-webkit-scrollbar-track {
-  @apply bg-transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  @apply bg-border rounded-full;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  @apply bg-muted-foreground/30;
-}
-
-/* Utility classes */
-.text-gradient {
-  @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400;
-}
-
-/* — Meshack-borrowed visual primitives — */
-
-/* Warm/cool gradient title accent (signature Meshack amber→cyan) */
-.text-gradient-warm {
-  @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(90deg, hsl(var(--accent-warm)), hsl(var(--accent-cool)));
-}
-
-/* Subtle grain texture for the whole canvas */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 1;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.40 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  opacity: 0.045;
-  mix-blend-mode: overlay;
-}
-
-/* Frosted-glass card primitive — borrow Meshack's backdrop-filter look */
-.glass-card {
-  @apply rounded-xl border border-border/70 bg-card/65 backdrop-blur-md backdrop-saturate-150;
-  transition: border-color .25s ease, background-color .25s ease, transform .3s var(--ease), box-shadow .25s;
-}
-.glass-card:hover {
-  @apply border-border bg-card/85 -translate-y-0.5 shadow-lg;
-}
-
-/* Monospace tag pill — code-style chips (matches Meshack's .skill-tags span) */
-.tag-mono {
-  font-family: 'JetBrains Mono', ui-monospace, monospace;
-  @apply inline-flex items-center px-2 py-0.5 text-[0.7rem] font-medium tracking-tight
-         text-muted-foreground bg-secondary/50 border border-border/40 rounded-md
-         transition-all duration-200;
-}
-.glass-card:hover .tag-mono,
-.group:hover .tag-mono {
-  @apply text-foreground border-border/80 bg-secondary/80;
-}
-
-/* Sweep accent line — drops on top of a hovered card */
-.sweep-accent {
-  @apply absolute inset-x-0 top-0 h-[2px] origin-left scale-x-0
-         bg-gradient-to-r from-amber-400 via-orange-400 to-cyan-400;
-  transition: transform .5s var(--ease);
-}
-.group:hover .sweep-accent,
-.glass-card:hover .sweep-accent {
-  transform: scaleX(1);
-}
-
-/* Floating icons animation */
-@keyframes float-up {
-  0% {
-    transform: translateY(0) rotate(0deg);
-    opacity: 0.1;
+  @media (min-width: 640px) {
+    .container { padding-inline: 2rem; }
   }
-  50% {
-    opacity: 0.15;
+
+  @media (min-width: 1024px) {
+    .container { padding-inline: 2.5rem; }
   }
-  100% {
-    transform: translateY(-100vh) rotate(360deg);
-    opacity: 0;
+
+  /* Small caps mono label used for every section eyebrow and metadata row. */
+  .label {
+    @apply font-mono text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-faint-foreground;
+  }
+
+  /* The hairline rule that opens each section. */
+  .rule {
+    @apply h-px w-full bg-border;
   }
 }
 
-.animate-float-1 { animation: float-up 20s linear infinite; }
-.animate-float-2 { animation: float-up 25s linear infinite; animation-delay: 2s; }
-.animate-float-3 { animation: float-up 22s linear infinite; animation-delay: 4s; }
-.animate-float-4 { animation: float-up 28s linear infinite; animation-delay: 1s; }
-.animate-float-5 { animation: float-up 24s linear infinite; animation-delay: 3s; }
-.animate-float-6 { animation: float-up 26s linear infinite; animation-delay: 5s; }
-.animate-float-7 { animation: float-up 23s linear infinite; animation-delay: 6s; }
-.animate-float-8 { animation: float-up 27s linear infinite; animation-delay: 7s; }
+/*
+ * Motion. Content is never hidden behind an animation: reveals animate opacity
+ * from 0 only when motion is allowed, and the reduced-motion branch paints the
+ * final state immediately.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
