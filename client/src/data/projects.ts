@@ -12,7 +12,7 @@ export interface Project {
   title: string;
   description: string;
   imageSrc: string;
-  iconKey?: 'waves' | 'cloud' | 'workflow' | 'map' | 'book' | 'swap' | 'health' | 'chart';
+  iconKey?: 'waves' | 'cloud' | 'workflow' | 'map' | 'book' | 'swap' | 'health' | 'chart' | 'activity';
   gradient?: string;
   categories: string[];
   displayCategories: string[];
@@ -72,7 +72,7 @@ export const projects: Project[] = [
       "Shared backbone with Hazards Watch, Drought Watch, Agriculture Watch"
     ],
     duration: "March 2025 - Present",
-    role: "Lead Developer (GIS Researcher & Engineer)"
+    role: "Lead Developer"
   },
   {
     id: "grib-index-kerchunk",
@@ -115,6 +115,43 @@ export const projects: Project[] = [
   },
 
   // ─── ONGOING ─────────────────────────────────────────────────────────────
+  {
+    id: "crma-bayesian-risk",
+    title: "CRMA — Continuous Risk Monitoring and Assessment",
+    description: "Bayesian-network method for operational impact-based forecasting of flood and drought hazards in East Africa. Combines observations, forecasts and expert knowledge into probabilistic risk categories at sub-national administrative units, so national agencies get a continuously updated risk picture rather than a hazard value alone. Currently in development at ICPAC; presented at EGU General Assembly 2026 (HS4.5).",
+    imageSrc: "/assets/gdal.png",
+    iconKey: "activity",
+    gradient: "from-indigo-500 to-violet-400",
+    categories: ["data", "gis"],
+    displayCategories: ["ICPAC", "Impact-Based Forecasting", "Research"],
+    technologies: "Python, Bayesian networks, probabilistic risk modelling, NWP forecasts, Earth observation, sub-national admin units",
+    projectLink: "https://meetingorganizer.copernicus.org/EGU26/EGU26-18323.html",
+    organization: "icpac",
+    status: "ongoing",
+    problem: "Impact-based forecasting needs more than a hazard magnitude. Deciding whether to act requires combining what is observed now, what the models forecast, and what local experts know about exposure and vulnerability — and doing it continuously, at the administrative units where decisions are actually taken.",
+    solution: "A Bayesian-network approach to continuous hydrometeorological risk assessment across East Africa, fusing observations, forecasts and expert knowledge into probabilistic flood and drought risk categories at sub-national administrative units, updated on an operational cadence.",
+    results: [
+      "Probabilistic flood and drought risk categories at sub-national level",
+      "Continuous assessment rather than one-off hazard snapshots",
+      "Observations, forecasts and expert knowledge combined in one framework",
+      "Presented at EGU General Assembly 2026 (session HS4.5)"
+    ],
+    metrics: [
+      { label: "Method", value: "Bayesian network" },
+      { label: "Hazards", value: "Flood & drought" },
+      { label: "Granularity", value: "Sub-national admin" },
+      { label: "Region", value: "East Africa" }
+    ],
+    features: [
+      "Bayesian-network risk inference",
+      "Continuous, operationally-paced updates",
+      "Observation, forecast and expert-knowledge fusion",
+      "Sub-national administrative granularity",
+      "Feeds impact-based forecasting workflows"
+    ],
+    duration: "2025 - Present",
+    role: "Co-developer (ICPAC) · Co-author, EGU 2026"
+  },
   {
     id: "etl-utility-package",
     title: "ETL Utility Package",
@@ -307,7 +344,7 @@ export const projects: Project[] = [
       "Integration design into the regional Flood Watch System"
     ],
     duration: "Initial ICPAC mandate, 2025",
-    role: "GIS Researcher & Engineer, ICPAC"
+    role: "Geospatial Developer & DevOps Engineer, ICPAC"
   },
   {
     id: "kemri-malaria-spatial",
@@ -343,44 +380,5 @@ export const projects: Project[] = [
     ],
     duration: "July 2023 – June 2024",
     role: "Assistant Research Officer, GIS"
-  },
-
-  // ─── PLANNED ─────────────────────────────────────────────────────────────
-  {
-    id: "predictive-modeling",
-    title: "Predictive Modeling & Analytics",
-    description: "Predictive analytics toolkit spanning geospatial modeling, statistical inference, and machine learning — GLMs, spatial regression, ensemble methods, and uncertainty quantification for environmental decision-making.",
-    imageSrc: "/assets/gdal.png",
-    iconKey: "chart",
-    gradient: "from-indigo-500 to-blue-400",
-    categories: ["data"],
-    displayCategories: ["Data Science", "Predictive Analytics"],
-    technologies: "Python, R, scikit-learn, statsmodels, XGBoost, GeoPandas, Stan",
-    projectLink: "https://github.com/HillaryKoros",
-    codeLink: "https://github.com/HillaryKoros",
-    status: "planned",
-    problem: "Environmental decisions need predictive capability that spans statistical modeling, spatial analysis, and ML — yet integrating these cleanly over geospatial inputs is non-trivial.",
-    solution: "A toolkit covering GLMs/GAMs, spatial regression, ensemble ML (RF, XGBoost, LightGBM), Bayesian inference, and geospatial prediction with proper uncertainty quantification.",
-    results: [
-      "Unified interface across statistical and ML models",
-      "Integration of GLMs with spatial predictors",
-      "Prediction maps with uncertainty bounds",
-      "Reproducible analytical workflows"
-    ],
-    metrics: [
-      { label: "Model Types", value: "GLM, GAM, ML, Bayesian" },
-      { label: "Spatial Methods", value: "5+" },
-      { label: "Output Formats", value: "Maps, Reports, APIs" },
-      { label: "Validation Methods", value: "CV, Bootstrap" }
-    ],
-    features: [
-      "Generalized Linear Models (GLMs)",
-      "Spatial regression and kriging",
-      "Ensemble machine learning",
-      "Bayesian inference with Stan",
-      "Geospatial prediction mapping"
-    ],
-    duration: "2025",
-    role: "Data Scientist"
   }
 ];

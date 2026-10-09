@@ -2,6 +2,8 @@ export interface ExperienceRole {
   id: string;
   title: string;
   organization: string;
+  /** Short form for compact listings (the organisations strip, chips). */
+  short: string;
   location?: string;
   start: string;
   end: string;
@@ -14,8 +16,9 @@ export interface ExperienceRole {
 export const experience: ExperienceRole[] = [
   {
     id: "icpac",
-    title: "GIS Researcher & Engineer (Consultant)",
+    title: "Geospatial Developer & DevOps Engineer (Consultant)",
     organization: "IGAD Climate Prediction and Applications Centre (ICPAC)",
+    short: "ICPAC",
     location: "Nairobi, Kenya",
     start: "2025",
     end: "Present",
@@ -34,6 +37,7 @@ export const experience: ExperienceRole[] = [
     id: "kemri",
     title: "Assistant Research Officer, GIS",
     organization: "KEMRI–Wellcome Trust Research Programme (KWTRP)",
+    short: "KEMRI–Wellcome",
     location: "Nairobi, Kenya",
     start: "July 2023",
     end: "June 2024",
@@ -48,6 +52,7 @@ export const experience: ExperienceRole[] = [
     id: "gri",
     title: "Spatial Data Scientist — Machine Learning & AI",
     organization: "Geospatial Research International",
+    short: "Geospatial Research Intl.",
     location: "Nairobi, Kenya",
     start: "April 2023",
     end: "June 2023",
@@ -61,6 +66,7 @@ export const experience: ExperienceRole[] = [
     id: "bomet",
     title: "GIS Lab Technician",
     organization: "County Government of Bomet",
+    short: "County Gov. of Bomet",
     location: "Bomet, Kenya",
     start: "May 2018",
     end: "April 2023",
@@ -75,6 +81,7 @@ export const experience: ExperienceRole[] = [
     id: "esri",
     title: "Technical Attaché",
     organization: "Esri Eastern Africa",
+    short: "Esri Eastern Africa",
     location: "Nairobi, Kenya",
     start: "July 2017",
     end: "October 2017",
@@ -84,3 +91,6 @@ export const experience: ExperienceRole[] = [
     ]
   }
 ];
+
+/** Employers, newest first — derived so the list is never written down twice. */
+export const organisations = experience.map((r) => ({ id: r.id, name: r.short }));

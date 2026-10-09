@@ -2,77 +2,119 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+    <!-- maximum-scale=1 removed: it blocked pinch-zoom, which fails WCAG 1.4.4 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
 
-    <title>Hillary Koros — GIS Researcher & Engineer | ICPAC, Hydroinformatics & Cloud-Native Earth Observation</title>
-    <meta name="description" content="Hillary Koros — GIS Researcher & Engineer at ICPAC. Operational flood early warning, multi-model hydrological forecasting, and cloud-native Earth observation pipelines for the Greater Horn of Africa." />
+    <title>Hillary Koros — GIS Researcher &amp; Engineer, ICPAC</title>
+    <meta
+      name="description"
+      content="Hillary Koros — GIS Researcher &amp; Engineer at ICPAC. Operational flood early warning, multi-model hydrological forecasting, and cloud-native Earth observation pipelines for the Greater Horn of Africa."
+    />
     <meta name="author" content="Hillary Koros" />
-    <meta name="keywords" content="Hillary Koros, ICPAC, geospatial engineer, hydroinformatics, flood early warning, Earth observation, GRIB, Kerchunk, GeoSFM, FLOODPROOFS, WRF, PostGIS, cloud-native geospatial, Greater Horn of Africa, Nairobi" />
     <link rel="canonical" href="https://hillarykoros.github.io/" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#faf8f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e141c" media="(prefers-color-scheme: dark)" />
+
+    <link rel="icon" href="/assets/avatar.jpg" />
+    <link rel="apple-touch-icon" href="/assets/avatar.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://hillarykoros.github.io/" />
-    <meta property="og:title" content="Hillary Koros — Geospatial Engineer at ICPAC" />
-    <meta property="og:description" content="Operational flood early warning, multi-model hydrological forecasting, and cloud-native Earth observation pipelines across the Greater Horn of Africa." />
+    <meta property="og:title" content="Hillary Koros — GIS Researcher &amp; Engineer, ICPAC" />
+    <meta
+      property="og:description"
+      content="Operational flood early warning, multi-model hydrological forecasting, and cloud-native Earth observation pipelines across the Greater Horn of Africa."
+    />
     <meta property="og:image" content="https://hillarykoros.github.io/assets/avatar.jpg" />
     <meta property="og:site_name" content="Hillary Koros" />
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@Hill_Koros" />
-    <meta name="twitter:title" content="Hillary Koros — Geospatial Engineer at ICPAC" />
-    <meta name="twitter:description" content="Flood early warning, multi-model hydrology, cloud-native Earth observation across the Greater Horn of Africa." />
+    <meta name="twitter:title" content="Hillary Koros — GIS Researcher &amp; Engineer, ICPAC" />
+    <meta
+      name="twitter:description"
+      content="Flood early warning, multi-model hydrology, cloud-native Earth observation across the Greater Horn of Africa."
+    />
     <meta name="twitter:image" content="https://hillarykoros.github.io/assets/avatar.jpg" />
 
-    <!-- JSON-LD: Person schema so search engines render a rich preview even without JS -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Hillary Koros",
-      "url": "https://hillarykoros.github.io/",
-      "image": "https://hillarykoros.github.io/assets/avatar.jpg",
-      "jobTitle": "GIS Researcher & Engineer",
-      "worksFor": {
-        "@type": "Organization",
-        "name": "IGAD Climate Prediction and Applications Centre (ICPAC)",
-        "url": "https://www.icpac.net/"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Nairobi",
-        "addressCountry": "KE"
-      },
-      "sameAs": [
-        "https://github.com/HillaryKoros",
-        "https://www.linkedin.com/in/hillarykoros",
-        "https://x.com/Hill_Koros"
-      ],
-      "knowsAbout": [
-        "Hydroinformatics",
-        "Flood Early Warning",
-        "Earth Observation",
-        "Cloud-Native Geospatial",
-        "GRIB / Kerchunk / Zarr",
-        "PostGIS",
-        "Hydrological Modeling"
-      ]
-    }
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Hillary Koros",
+        "url": "https://hillarykoros.github.io/",
+        "image": "https://hillarykoros.github.io/assets/avatar.jpg",
+        "jobTitle": "GIS Researcher & Engineer",
+        "email": "mailto:koroshillary12@gmail.com",
+        "worksFor": {
+          "@type": "Organization",
+          "name": "IGAD Climate Prediction and Applications Centre (ICPAC)",
+          "url": "https://www.icpac.net/"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nairobi",
+          "addressCountry": "KE"
+        },
+        "sameAs": [
+          "https://github.com/HillaryKoros",
+          "https://www.linkedin.com/in/hillarykoros",
+          "https://x.com/Hill_Koros"
+        ],
+        "knowsAbout": [
+          "Hydroinformatics",
+          "Flood Early Warning",
+          "Earth Observation",
+          "Cloud-Native Geospatial",
+          "Zarr",
+          "PostGIS",
+          "Hydrological Modeling"
+        ]
+      }
     </script>
 
-    <!-- Static fallback so crawlers and link previews see meaningful content even before JS executes -->
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <!--
+      Resolve the theme before first paint so there is no flash of the wrong
+      one. Stored choice wins; otherwise follow the operating system.
+    -->
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var dark =
+            stored === 'dark' ||
+            (stored === null && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          if (dark) document.documentElement.classList.add('dark');
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        } catch (e) {
+          /* storage blocked — fall through to the light default */
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root">
       <noscript>
         <h1>Hillary Koros</h1>
-        <p>Geospatial Engineer at ICPAC (IGAD Climate Prediction and Applications Centre). I build operational flood early warning systems, multi-model hydrological forecasting pipelines, and cloud-native Earth observation infrastructure for the Greater Horn of Africa.</p>
-        <p>Contact: <a href="mailto:koroshillary12@gmail.com">koroshillary12@gmail.com</a> · <a href="https://github.com/HillaryKoros">GitHub</a> · <a href="https://www.linkedin.com/in/hillarykoros">LinkedIn</a></p>
+        <p>
+          GIS Researcher &amp; Engineer at ICPAC (IGAD Climate Prediction and Applications Centre).
+          I build operational flood early warning systems, multi-model hydrological forecasting
+          pipelines, and cloud-native Earth observation infrastructure for the Greater Horn of
+          Africa.
+        </p>
+        <p>
+          Contact: <a href="mailto:koroshillary12@gmail.com">koroshillary12@gmail.com</a> ·
+          <a href="https://github.com/HillaryKoros">GitHub</a> ·
+          <a href="https://www.linkedin.com/in/hillarykoros">LinkedIn</a>
+        </p>
       </noscript>
     </div>
-    <script type="module" src="./src/main.tsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

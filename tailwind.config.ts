@@ -1,130 +1,74 @@
-import type { Config } from "tailwindcss";
+import type { Config } from 'tailwindcss';
 
+/**
+ * Colours are all token-backed (see client/src/index.css) so a component never
+ * writes a raw hue and never needs a `dark:` variant just to stay legible.
+ */
 export default {
-  darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  darkMode: ['class'],
+  content: ['./client/index.html', './client/src/**/*.{ts,tsx}'],
   theme: {
-    fontFamily: {
-      sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-      display: ['Poppins', 'Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-    },
-    fontSize: {
-      '2xs': '0.65rem', // Extra small text size for very compact elements
-      'xs': '0.75rem',
-      'sm': '0.875rem',
-      'base': '1rem',
-      'lg': '1.125rem',
-      'xl': '1.25rem',
-      '2xl': '1.5rem',
-      '3xl': '1.875rem',
-      '4xl': '2.25rem',
-      '5xl': '3rem',
-      '6xl': '3.75rem',
-    },
     extend: {
-      borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
-        xl: "1rem",
-        '2xl': "1.5rem",
+      fontFamily: {
+        sans: ['Geist', 'ui-sans-serif', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
       },
       colors: {
-        background: "hsl(var(--background))",
-        foreground: "hsl(var(--foreground))",
-        card: {
-          DEFAULT: "hsl(var(--card))",
-          foreground: "hsl(var(--card-foreground))",
+        background: 'hsl(var(--background))',
+        surface: {
+          DEFAULT: 'hsl(var(--surface))',
+          sunken: 'hsl(var(--surface-sunken))',
         },
-        popover: {
-          DEFAULT: "hsl(var(--popover))",
-          foreground: "hsl(var(--popover-foreground))",
+        foreground: 'hsl(var(--foreground))',
+        'muted-foreground': 'hsl(var(--muted-foreground))',
+        'faint-foreground': 'hsl(var(--faint-foreground))',
+        border: {
+          DEFAULT: 'hsl(var(--border))',
+          strong: 'hsl(var(--border-strong))',
         },
         primary: {
-          DEFAULT: "hsl(var(--primary))",
-          foreground: "hsl(var(--primary-foreground))",
+          DEFAULT: 'hsl(var(--primary))',
+          hover: 'hsl(var(--primary-hover))',
+          foreground: 'hsl(var(--primary-foreground))',
+          soft: 'hsl(var(--primary-soft))',
         },
-        secondary: {
-          DEFAULT: "hsl(var(--secondary))",
-          foreground: "hsl(var(--secondary-foreground))",
+        status: {
+          operational: 'hsl(var(--status-operational))',
+          ongoing: 'hsl(var(--status-ongoing))',
+          completed: 'hsl(var(--status-completed))',
+          planned: 'hsl(var(--status-planned))',
         },
-        muted: {
-          DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
-        },
-        border: "hsl(var(--border))",
-        input: "hsl(var(--input))",
-        ring: "hsl(var(--ring))",
-        chart: {
-          "1": "hsl(var(--chart-1))",
-          "2": "hsl(var(--chart-2))",
-          "3": "hsl(var(--chart-3))",
-          "4": "hsl(var(--chart-4))",
-          "5": "hsl(var(--chart-5))",
-        },
-        sidebar: {
-          DEFAULT: "hsl(var(--sidebar-background))",
-          foreground: "hsl(var(--sidebar-foreground))",
-          primary: "hsl(var(--sidebar-primary))",
-          "primary-foreground": "hsl(var(--sidebar-primary-foreground))",
-          accent: "hsl(var(--sidebar-accent))",
-          "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
-          border: "hsl(var(--sidebar-border))",
-          ring: "hsl(var(--sidebar-ring))",
-        },
+        ring: 'hsl(var(--ring))',
+      },
+      borderRadius: {
+        lg: 'var(--radius)',
+        md: 'calc(var(--radius) - 2px)',
+        sm: 'calc(var(--radius) - 4px)',
+      },
+      fontSize: {
+        // Body copy: `text-sm` is used for most descriptive text, so it is
+        // nudged up from Tailwind's 0.875rem rather than swapped per file.
+        sm: ['0.9375rem', { lineHeight: '1.6' }],
+        base: ['1.0625rem', { lineHeight: '1.65' }],
+        // Display scale — tight leading, balanced for long technical headings
+        'display': ['clamp(2.3rem, 1.4rem + 3.6vw, 4.25rem)', { lineHeight: '1.04', letterSpacing: '-0.03em' }],
+        'title':   ['clamp(1.75rem, 1.3rem + 1.7vw, 2.5rem)', { lineHeight: '1.12', letterSpacing: '-0.025em' }],
+        'heading': ['1.4rem', { lineHeight: '1.3', letterSpacing: '-0.015em' }],
+        'lede':    ['clamp(1.0625rem, 1rem + 0.35vw, 1.25rem)', { lineHeight: '1.65' }],
+      },
+      maxWidth: {
+        measure: '68ch',
       },
       keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+        'fade-up': {
+          from: { opacity: '0', transform: 'translateY(8px)' },
+          to: { opacity: '1', transform: 'none' },
         },
       },
       animation: {
-        "accordion-down": "accordion-down 0.2s ease-out",
-        "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 5s ease-in-out infinite",
-        "pulse-slow": "pulse 3s ease-in-out infinite",
-      },
-      boxShadow: {
-        'subtle': '0 4px 20px rgba(0, 0, 0, 0.05)',
-        'subtle-dark': '0 4px 20px rgba(0, 0, 0, 0.2)',
-        'card': '0 10px 30px -5px rgba(0, 0, 0, 0.1)',
-        'card-dark': '0 10px 30px -5px rgba(0, 0, 0, 0.3)',
-      },
-      typography: {
-        DEFAULT: {
-          css: {
-            color: 'hsl(var(--foreground))',
-            a: {
-              color: 'hsl(var(--primary))',
-              '&:hover': {
-                color: 'hsl(var(--primary))',
-              },
-            },
-          },
-        },
+        'fade-up': 'fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both',
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [],
 } satisfies Config;
