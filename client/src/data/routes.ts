@@ -62,6 +62,13 @@ export function documentTitle(route: Pick<RouteMeta, 'path' | 'title'>): string 
     : `${site.name} — ${route.title}`;
 }
 
+/**
+ * Canonical URL for a route.
+ *
+ * Pages serves a directory index, so /work redirects to /work/ with a 301.
+ * The trailing slash is included here so the canonical names the URL that is
+ * actually served rather than one that redirects to it.
+ */
 export function canonicalUrl(path: string): string {
-  return `${site.url}${path === '/' ? '/' : path}`;
+  return path === '/' ? `${site.url}/` : `${site.url}${path}/`;
 }
