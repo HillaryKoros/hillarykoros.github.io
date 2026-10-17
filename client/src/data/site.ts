@@ -86,7 +86,7 @@ export const site = {
     'CIMA Research Foundation',
     'Development Seed',
     'African Union Commission',
-    'IGAD member states',
+    'Greater Horn of Africa states',
     'KEMRI–Wellcome Trust',
   ],
 
@@ -96,8 +96,8 @@ export const site = {
       'decisions that have to be made on a schedule — flood warnings, seasonal outlooks, ' +
       'anticipatory action.',
     'At ICPAC I lead engineering on the East Africa Flood Watch System, the regional flood ' +
-      'early-warning platform serving the eleven IGAD member states. My initial mandate was the ' +
-      'operational transfer of FloodPROOFS East Africa from CIMA Research Foundation, which the ' +
+      'early-warning platform serving the eleven countries of the Greater Horn of Africa. My ' +
+      'initial mandate was the operational transfer of FloodPROOFS East Africa from CIMA Research Foundation, which the ' +
       'Flood Watch now builds on; the work has since extended across ICPAC\'s wider early-warning ' +
       'portfolio and into AMHEWAS reporting to the African Union Commission.',
     'The engineering underneath is cloud-native. With Development Seed I co-develop ' +

@@ -38,7 +38,7 @@ export const projects: Project[] = [
   {
     id: "east-africa-flood-watch",
     title: "East Africa Flood Watch System",
-    description: "Regional flood early-warning platform serving the 11 IGAD member states. Integrates multiple hydrological forecasting systems, satellite Earth observation, and geospatial analytics into a unified operational workflow that supports anticipatory action across the Greater Horn of Africa. Sits inside ICPAC's broader early-warning portfolio that also feeds AMHEWAS reporting to the African Union Commission.",
+    description: "Regional flood early-warning platform serving the 11 countries of the Greater Horn of Africa. Integrates multiple hydrological forecasting systems, satellite Earth observation, and geospatial analytics into a unified operational workflow that supports anticipatory action across the region. Sits inside ICPAC's broader early-warning portfolio that also feeds AMHEWAS reporting to the African Union Commission.",
     imageSrc: "/assets/ARCGIS-PRO.png",
     iconKey: "waves",
     gradient: "from-blue-500 to-cyan-400",
@@ -52,7 +52,7 @@ export const projects: Project[] = [
     problem: "The Greater Horn of Africa — over 300 million people across 11 countries — faces escalating flood disasters. Forecast outputs from FloodPROOFS, GeoSFM, MIKE Hydro and HYPE lived in different silos; national disaster management agencies had no unified view, and the broader early-warning portfolio (Hazards Watch, Drought Watch, Agriculture Watch) needed a coherent operational spine.",
     solution: "A production-grade platform built on cloud-native infrastructure. A Nile multi-model ensemble pipeline ingests outputs from multiple hydrological systems, normalises them onto a common grid and gauge set, and exposes ensemble forecasts plus disagreement signals to a forecaster-facing viewer. The same backbone supports the wider portfolio (East Africa Hazards Watch, Drought Watch, Agriculture Watch) and feeds AMHEWAS reporting.",
     results: [
-      "Operational early warning across 11 IGAD member states",
+      "Operational early warning across the 11 countries of the Greater Horn of Africa",
       "Nile multi-model ensemble unifies FloodPROOFS, GeoSFM, MIKE Hydro, HYPE",
       "Decision-support dashboards used by national disaster management agencies",
       "Backbone reused across ICPAC's wider Hazards/Drought/Agriculture Watch portfolio",

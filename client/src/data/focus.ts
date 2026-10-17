@@ -74,7 +74,7 @@ export interface Stat {
 export const impact: Stat[] = [
   {
     value: 11,
-    label: 'IGAD member states',
+    label: 'Greater Horn of Africa countries',
     org: 'ICPAC',
     note: 'under operational flood early warning via the East Africa Flood Watch System',
   },

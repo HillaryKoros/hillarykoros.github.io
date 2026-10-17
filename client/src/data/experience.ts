@@ -26,7 +26,7 @@ export const experience: ExperienceRole[] = [
     summary: "Initial work supported the operational transfer of FloodPROOFS East Africa from CIMA into ICPAC; now lead engineering on the East Africa Flood Watch System and contribute across ICPAC's wider early-warning portfolio.",
     bullets: [
       "Initial ICPAC mandate: supported the operational transfer of CIMA's FloodPROOFS East Africa flood forecasting system into ICPAC — building automated data processing workflows and ensuring operational continuity and reproducibility.",
-      "Lead development of the East Africa Flood Watch System — regional early-warning platform integrating hydrological models, satellite Earth observation, and geospatial analytics for the 11 IGAD member states.",
+      "Lead development of the East Africa Flood Watch System — regional early-warning platform integrating hydrological models, satellite Earth observation, and geospatial analytics across the 11 countries of the Greater Horn of Africa.",
       "Contribute to the broader early-warning portfolio (East Africa Hazards Watch, Drought Watch, Agriculture Watch, Flood Watcher) and to AMHEWAS reporting to the African Union Commission.",
       "Built cloud-native infrastructure for real-time access to global NWP archives (ECMWF IFS, NOAA GEFS) — no full-file downloads, no re-encoding.",
       "Integrated multiple regional flood forecasting systems into a unified operational workflow for anticipatory action.",
